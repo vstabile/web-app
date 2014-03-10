@@ -1,0 +1,159 @@
+{% extends 'FrontendBundle::layout_ong.html.twig' %}
+
+{% block body %}
+    <main>
+        <div class="wrapper">
+            <div class="dashboard" id="tabs">
+			<span class="page-title pull-left">
+				<img src="{{ asset('bundles/frontend/images/liga-solidaria.png') }}" alt="Liga Solidária">
+				<h1>{{ ong.nomeFantasia }}</h1>
+				<h2>Subtítulo</h2>
+			</span>
+                <button class="btn-top">Criar campanha</button>
+
+                <nav class="tab-menu">
+                    <ul>
+                        <li><a href="#tabs-3">Informações</a></li>
+                    </ul>
+                </nav><!--tab-menu-->
+
+                {{ form_start(form) }}
+
+                <section class="tab-donors" id="tabs-3">
+                    <div class="donate-status">
+                        <div class="left-block-perfil">
+                            <div class="left-information-block-gray">
+                                <span class="information-block-title">Perfil</span>
+                                <div class="clearAll"></div>
+                                <div class="information-block-field-line">
+                                    {{ form_label(form.nomeFantasia) }}
+                                    {{ form_widget(form.nomeFantasia) }}
+                                    {{ form_errors(form.nomeFantasia) }}
+                                </div>
+                                <div class="clearAll"></div>
+                                <div class="information-block-field-line">
+                                    {{ form_label(form.description) }}
+                                    {{ form_widget(form.description) }}
+                                    {{ form_errors(form.description) }}
+                                </div>
+                                <div class="clearAll"></div>
+                            </div>
+                            <div class="left-information-block-gray">
+                                <span class="information-block-title">Endereço</span>
+                                <div class="clearAll"></div>
+                                <div class="information-block-field-line">
+                                    {{ form_label(form.cep) }}
+                                    {{ form_widget(form.cep) }}
+                                    {{ form_errors(form.cep) }}
+                                </div>
+                                <div class="information-block-field-line">
+                                    {{ form_label(form.address) }}
+                                    {{ form_widget(form.address) }}
+                                    {{ form_errors(form.address) }}
+                                </div>
+                                <div class="clearAll"></div>
+                                <div class="information-block-field-line">
+                                    {{ form_label(form.complement) }}
+                                    {{ form_widget(form.complement) }}
+                                    {{ form_errors(form.complement) }}
+                                </div>
+                                <div class="clearAll"></div>
+                                <div class="information-block-field-line">
+                                    {{ form_label(form.neighborhood) }}
+                                    {{ form_widget(form.neighborhood) }}
+                                    {{ form_errors(form.neighborhood) }}
+                                </div>
+                                <div class="clearAll"></div>
+                                <div class="information-block-field-line">
+                                    {{ form_label(form.city) }}
+                                    {{ form_widget(form.city) }}
+                                    {{ form_errors(form.city) }}
+                                </div>
+                                <div class="information-block-field-line">
+                                    {{ form_label(form.state) }}
+                                    {{ form_widget(form.state) }}
+                                    {{ form_errors(form.state) }}
+                                </div>
+                                <div class="clearAll"></div>
+                            </div>
+                        </div>
+                        <div class="right-block-perfil">
+                            <div class="right-information-block-gray">
+                                <div class="clearAll"></div>
+                                <span class="lastTitle information-block-title">Conta</span>
+                                <div class="clearAll"></div>
+                                <p>E-mail</p>
+                                <div class="clearAll"></div>
+                                <p>{{ ong.email }}</p>
+                                <div class="clearAll"></div>
+                                <p>CNPJ</p>
+                                <div class="clearAll"></div>
+                                <p>{{ ong.document }}</p>
+                                <div class="clearAll"></div>
+                                <p>Razão Social</p>
+                                <div class="clearAll"></div>
+                                <p>{{ ong.razaoSocial }}</p>
+                            </div>
+                            <div class="right-information-block-gray">
+                                <div class="clearAll"></div>
+                                <span class="lastTitle information-block-title">Contato</span>
+                                <div class="clearAll"></div>
+                                <div class="information-block-field-line">
+                                    {{ form_label(form.nomeResponsavel) }}
+                                    {{ form_widget(form.nomeResponsavel) }}
+                                    {{ form_errors(form.nomeResponsavel) }}
+                                </div>
+                                <div class="clearAll"></div>
+                                <div class="information-block-field-line">
+                                    {{ form_label(form.phone) }}
+                                    {{ form_widget(form.phone) }}
+                                    {{ form_errors(form.phone) }}
+                                </div>
+                                <div class="clearAll"></div>
+                                <div class="information-block-field-line">
+                                    {{ form_label(form.site) }}
+                                    {{ form_widget(form.site) }}
+                                    {{ form_errors(form.site) }}
+                                </div>
+                                <div class="clearAll"></div>
+                                <div class="information-block-field-line">
+                                    {{ form_label(form.facebookUrl) }}
+                                    {{ form_widget(form.facebookUrl) }}
+                                    {{ form_errors(form.facebookUrl) }}
+                                </div>
+                                <div class="clearAll"></div>
+                                <div class="information-block-field-line">
+                                    {{ form_label(form.twitterUrl) }}
+                                    {{ form_widget(form.twitterUrl) }}
+                                    {{ form_errors(form.twitterUrl) }}
+                                </div>
+                                <div class="clearAll"></div>
+                            </div>
+                        </div>
+                        <div class="clearAll"></div>
+                        {{ form_rest(form) }}
+                    </div><!--donate-status-->
+                </section><!--tab-donors-->
+                {{ form_end(form) }}
+            </div><!--about-->
+        </div><!--wrapper-->
+    </main>
+
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".btn-top").click(function(){
+                window.location = "{{ path('ong_create_campaign') }}";
+            });
+            $(function() {
+                $( "#tabs" ).tabs();
+            });
+
+            $(".logged").click(function(){
+                $(".logged-menu").toggle();
+            });
+
+        });
+    </script>
+{% endblock %}
+

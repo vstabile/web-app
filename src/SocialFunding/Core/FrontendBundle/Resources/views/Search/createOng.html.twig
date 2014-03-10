@@ -1,0 +1,182 @@
+{% extends 'FrontendBundle::layout.html.twig' %}
+
+{% block body %}
+    <main>
+        <div class="carousel-hero">
+            <ul>
+                <li>
+                    <section class="hero">
+                        <div class="banner-wrapper">
+                            <div class="info">
+                                <h1>E SE VOCÊ PUDESSE MUDAR O MUNDO?</h1>
+                                <p>Saiba como e aproveite<br/>para conhecer a Social Funding</p>
+                                <button class="carousel-next">Clique e Confira!</button>
+                            </div><!--info-->
+                            <img src="{{ asset('bundles/frontend/images/banner.png') }}" alt=""/>
+                        </div><!--banner-wrapper-->
+                    </section><!--hero-->
+                </li>
+                <li>
+                    <section class="hero2">
+                        <div class="banner-wrapper">
+                            <div class="info">
+                                <h1>E SE VOCÊ PUDESSE MUDAR O MUNDO?</h1>
+                                <p>Saiba como e aproveite<br/>para conhecer a Social Funding</p>
+                                <button class="carousel-next">Clique e Confira!</button>
+                            </div><!--info-->
+                            <img src="{{ asset('bundles/frontend/images/banner.png') }}" alt=""/>
+                        </div><!--banner-wrapper-->
+                    </section><!--hero-->
+                </li>
+            </ul>
+        </div><!--carousel-hero-->
+        <section class="posts-home">
+            <h4>Recomendados</h4>
+            <article class="post-door">
+                <a href="#" title="Liga Solidária"><img src="{{ asset('bundles/frontend/images/liga.jpg') }}" alt="Liga Solidária"/></a>
+                <a href="#" class="post-text">
+                    <h3>Liga Solidária</h3>
+                    <p>A Liga Solidária, é uma organização social sem fins lucrativos que desenvolve programas socioeducativos e de cidadania que beneficiam mais de 3.200 pessoas.</p>
+                </a>
+                <span>São Paulo, SP</span>
+                <div class="meta">
+                    texto
+                </div>
+            </article><!--post-door-->
+            <article class="post-door">
+                <a href="#" title="Liga Solidária"><img src="{{ asset('bundles/frontend/images/liga.jpg') }}" alt="Liga Solidária"/></a>
+                <a href="#" class="post-text">
+                    <h3>Liga Solidária</h3>
+                    <p>A Liga Solidária, é uma organização social sem fins lucrativos que desenvolve programas socioeducativos e de cidadania que beneficiam mais de 3.200 pessoas.</p>
+                </a>
+                <span>São Paulo, SP</span>
+                <div class="meta">
+                    texto
+                </div>
+            </article><!--post-door-->
+            <article class="post-door">
+                <a href="#" title="Liga Solidária"><img src="{{ asset('bundles/frontend/images/liga.jpg') }}" alt="Liga Solidária"/></a>
+                <a href="#" class="post-text">
+                    <h3>Liga Solidária</h3>
+                    <p>A Liga Solidária, é uma organização social sem fins lucrativos que desenvolve programas socioeducativos e de cidadania que beneficiam mais de 3.200 pessoas.</p>
+                </a>
+                <span>São Paulo, SP</span>
+                <div class="meta">
+                    texto
+                </div>
+            </article><!--post-door-->
+            <article class="post-door">
+                <a href="#" title="Liga Solidária"><img src="{{ asset('bundles/frontend/images/liga.jpg') }}" alt="Liga Solidária"/></a>
+                <a href="#" class="post-text">
+                    <h3>Liga Solidária</h3>
+                    <p>A Liga Solidária, é uma organização social sem fins lucrativos que desenvolve programas socioeducativos e de cidadania que beneficiam mais de 3.200 pessoas.</p>
+                </a>
+                <span>São Paulo, SP</span>
+                <div class="meta">
+                    texto
+                </div>
+            </article><!--post-door-->
+        </section><!--posts-home-->
+        <div class="content-wrapper">
+            <aside class="social">
+                <div class="fb-like-box" data-href="https://www.facebook.com/radiorockoficial" data-width="240" data-height="250" data-colorscheme="light" data-show-faces="true" data-header="false" data-stream="false" data-show-border="false"></div>
+                <div class="side-blog">
+                    <h5>Blog</h5>
+                    <article class="blog-post">
+                        <a href="" class="blog-post-title">Fotos de equipe Outubro de 2013</a>
+                        <span>23/10/2013</span>
+                        <a href="" class="blog-post-text"><p>Desde quinta passada (17/10/2013) o time do Catarse esteve reunido no QG do Rio para discutir rumos da plataforma. As atividade...</p></a>
+                    </article>
+                    <article class="blog-post">
+                        <a href="" class="blog-post-title">Fotos de equipe Outubro de 2013</a>
+                        <span>23/10/2013</span>
+                        <a href="" class="blog-post-text"><p>Desde quinta passada (17/10/2013) o time do Catarse esteve reunido no QG do Rio para discutir rumos da plataforma. As atividade...</p></a>
+                    </article>
+                    <article class="blog-post">
+                        <a href="" class="blog-post-title">Fotos de equipe Outubro de 2013</a>
+                        <span>23/10/2013</span>
+                        <a href="" class="blog-post-text"><p>Desde quinta passada (17/10/2013) o time do Catarse esteve reunido no QG do Rio para discutir rumos da plataforma. As atividade...</p></a>
+                    </article>
+
+                </div><!--side-blog-->
+                <div class="twitter-box">
+                    <a class="twitter-timeline" href="https://twitter.com/lzalcon" data-widget-id="414114585885421569">Tweets by @lzalcon</a>
+                    {#<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+":-//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>#}
+                </div><!--twitter-->
+            </aside><!--social-->
+            <section class="partner">
+                <div class="partner-wrapper">
+                    <h4>Parceiros</h4>
+                    <a href="#" title="Extra"><img src="{{ asset('bundles/frontend/images/extra.jpg') }}" alt="Extra"/></a>
+                    <a href="#" title="Extra"><img src="{{ asset('bundles/frontend/images/extra.jpg') }}" alt="Extra"/></a>
+                    <a href="#" title="Extra"><img src="{{ asset('bundles/frontend/images/extra.jpg') }}" alt="Extra"/></a>
+                    <a href="#" title="Extra"><img src="{{ asset('bundles/frontend/images/extra.jpg') }}" alt="Extra"/></a>
+                    <a href="#" title="Extra"><img src="{{ asset('bundles/frontend/images/extra.jpg') }}" alt="Extra"/></a>
+                    <a href="#" title="Extra"><img src="{{ asset('bundles/frontend/images/extra.jpg') }}" alt="Extra"/></a>
+                    <a href="#" title="Extra"><img src="{{ asset('bundles/frontend/images/extra.jpg') }}" alt="Extra"/></a>
+                    <a href="#" title="Extra"><img src="{{ asset('bundles/frontend/images/extra.jpg') }}" alt="Extra"/></a>
+                    <a href="#" title="Extra"><img src="{{ asset('bundles/frontend/images/extra.jpg') }}" alt="Extra"/></a>
+                    <a href="#" title="Extra"><img src="{{ asset('bundles/frontend/images/extra.jpg') }}" alt="Extra"/></a>
+                </div><!--partner-wrapper-->
+            </section><!--parter-->
+            <section class="opinion">
+                <a href="#" class="ver-todos">Ver todos</a>
+                <h4>Opinião de quem ajudou</h4>
+                <div class="carousel-reviewers">
+                    <ul>
+                        <li>
+                            <article class="reviewer">
+                                <a href=""><img src="{{ asset('bundles/frontend/images/angelo.png') }}" alt="Angelo Gianotto"/></a>
+                                <h5>1</h5>
+                                <span>Doou para: <b>Liga Solidária</b></span>
+                                <p>“A Liga Solidária, é uma organização social sem fins lucrativos que desenvolve programas socioeducativos e de cidadania que beneficiam mais de 3.200 pessoas. A Liga Solidária, é uma organização social sem fins lucrativos que desenvolve programas socioeducativos e de cidadania que beneficiam mais de 3.200 pessoas.”</p>
+                            </article><!--reviewer-->
+                        </li>
+                        <li>F
+                            <article class="reviewer">
+                                <a href=""><img src="{{ asset('bundles/frontend/images/angelo.png') }}" alt="Angelo Gianotto"/></a>
+                                <h5>2</h5>
+                                <span>Doou para: <b>Liga Solidária</b></span>
+                                <p>“A Liga Solidária, é uma organização social sem fins lucrativos que desenvolve programas socioeducativos e de cidadania que beneficiam mais de 3.200 pessoas. A Liga Solidária, é uma organização social sem fins lucrativos que desenvolve programas socioeducativos e de cidadania que beneficiam mais de 3.200 pessoas.”</p>
+                            </article><!--reviewer-->
+                        </li>
+                        <li>
+                            <article class="reviewer">
+                                <a href=""><img src="{{ asset('bundles/frontend/images/angelo.png') }}" alt="Angelo Gianotto"/></a>
+                                <h5>3</h5>
+                                <span>Doou para: <b>Liga Solidária</b></span>
+                                <p>“A Liga Solidária, é uma organização social sem fins lucrativos que desenvolve programas socioeducativos e de cidadania que beneficiam mais de 3.200 pessoas. A Liga Solidária, é uma organização social sem fins lucrativos que desenvolve programas socioeducativos e de cidadania que beneficiam mais de 3.200 pessoas.”</p>
+                            </article><!--reviewer-->
+                        </li>
+                        <li>
+                            <article class="reviewer">
+                                <a href=""><img src="{{ asset('bundles/frontend/images/angelo.png') }}" alt="Angelo Gianotto"/></a>
+                                <h5>4</h5>
+                                <span>Doou para: <b>Liga Solidária</b></span>
+                                <p>“A Liga Solidária, é uma organização social sem fins lucrativos que desenvolve programas socioeducativos e de cidadania que beneficiam mais de 3.200 pessoas. A Liga Solidária, é uma organização social sem fins lucrativos que desenvolve programas socioeducativos e de cidadania que beneficiam mais de 3.200 pessoas.”</p>
+                            </article><!--reviewer-->
+                        </li>
+                        <li>
+                            <article class="reviewer">
+                                <a href=""><img src="{{ asset('bundles/frontend/images/angelo.png') }}" alt="Angelo Gianotto"/></a>
+                                <h5>5</h5>
+                                <span>Doou para: <b>Liga Solidária</b></span>
+                                <p>“A Liga Solidária, é uma organização social sem fins lucrativos que desenvolve programas socioeducativos e de cidadania que beneficiam mais de 3.200 pessoas. A Liga Solidária, é uma organização social sem fins lucrativos que desenvolve programas socioeducativos e de cidadania que beneficiam mais de 3.200 pessoas.”</p>
+                            </article><!--reviewer-->
+                        </li>
+                        <li>
+                            <article class="reviewer">
+                                <a href=""><img src="{{ asset('bundles/frontend/images/angelo.png') }}" alt="Angelo Gianotto"/></a>
+                                <h5>6</h5>
+                                <span>Doou para: <b>Liga Solidária</b></span>
+                                <p>“A Liga Solidária, é uma organização social sem fins lucrativos que desenvolve programas socioeducativos e de cidadania que beneficiam mais de 3.200 pessoas. A Liga Solidária, é uma organização social sem fins lucrativos que desenvolve programas socioeducativos e de cidadania que beneficiam mais de 3.200 pessoas.”</p>
+                            </article><!--reviewer-->
+                        </li>
+                    </ul>
+                </div>
+            </section><!--opinion-->
+        </div><!--content-wrapper-->
+
+    </main>
+{% endblock %}
+

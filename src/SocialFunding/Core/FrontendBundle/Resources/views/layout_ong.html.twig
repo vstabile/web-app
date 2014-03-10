@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="pt">
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+
+        <link rel="stylesheet" type="text/css" href="{{ asset('bundles/frontend/css/style.css') }}">
+        <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,300,700,900' rel='stylesheet' type='text/css'>
+        {% block stylesheets %}{% endblock %}
+        <link rel="stylesheet" type="text/css" href="{{ asset('bundles/frontend/css/jquery-ui.css') }}">
+        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    </head>
+    <body>
+        <div id="fb-root"></div>
+        <script>(function(d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) return;
+                js = d.createElement(s); js.id = id;
+                js.src = "//connect.facebook.net/pt_BR/all.js#xfbml=1";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));</script>
+        {% block header %}
+            {% for flashMessage in app.session.flashbag.get('notice') %}
+                <div class="flash-message">
+                    <em>Notice</em>: {{ flashMessage }}
+                </div>
+            {% endfor %}
+            <header>
+                <div class="header-wrapper">
+                    <div class="logo" itemscope="" itemtype="http://schema.org/Organization">
+                        <a href="{{ path('search_index') }}" title="Social Funding" itemprop=ürl><img src="{{ asset('bundles/frontend/images/logo-social-funding.png') }}" alt="Social Funding" itemprop="logo"></a>
+                    </div><!--logo-->
+                    <div class="social-icons">
+                        <a href="#" title="Curta nossa fanpage no Facebook"><img src="{{ asset('bundles/frontend/images/facebook.png') }}" alt="Facebook"></a>
+                        <a href="#" title="Siga-nos no Twitter"><img src="{{ asset('bundles/frontend/images/twitter.png') }}" alt="Twitter"></a>
+                        <a href="#" title="Siga-nos no Instagram"><img src="{{ asset('bundles/frontend/images/instagram.png') }}" alt="Instagram"></a>
+                    </div><!--social-icons-->
+                    <nav class="main-menu with-logged">
+                        <ul>
+                            <li><a href="" class="menu-border">ajuda</a></li>
+                        </ul>
+                        <a href="#" class="logged">{{ ong.nomeFantasia }}</a>
+                        <ul class="logged-menu">
+                            <li><a href="{{ path('ong_create_campaign') }}" class="create-campaign">Criar Campanha</a></li>
+                            <li><a href="{{ path('ong_list_campaign') }}" class="my-campaigns">Minhas Campanhas</a></li>
+                            <li><a href="{{ path('ong_edit_perfil') }}" class="info">Informações</a></li>
+                            <li><a href="{{ path('_security_logout') }}" class="logout">LOG OUT</a></li>
+                        </ul>
+                    </nav><!--main-menu-->
+                </div><!--header-wrapper-->
+            </header>
+        {% endblock %}
+
+        {% block body %}{% endblock %}
+        {% block javascripts %}{% endblock %}
+        <footer>
+            <div class="footer-wrapper">
+                <nav class="footer-menu">
+                    <ul>
+                        <li><a href="{{ path('search_about_us') }}" class="nav-link">Quem somos</a></li>
+                        <li><a href="{{ path('search_faq') }}" class="nav-link">Dúvidas Frequentes</a></li>
+                        <li><a href="{{ path('search_contact') }}" class="nav-link">Contato</a></li>
+                        <li><a href="{{ path('search_use_terms') }}" class="nav-link">Termos de uso</a></li>
+                    </ul>
+                </nav><!--footer-menu-->
+                <div class="news-social">
+                    <div class="social-icons">
+                        <a href="#" title="Curta nossa fanpage no Facebook"><img src="{{ asset('bundles/frontend/images/facebook.png') }}" alt="Facebook"/></a>
+                        <a href="#" title="Siga-nos no Twitter"><img src="{{ asset('bundles/frontend/images/twitter.png') }}" alt="Twitter"/></a>
+                        <a href="#" title="Siga-nos no Instagram"><img src="{{ asset('bundles/frontend/images/instagram.png') }}" alt="Instagram"/></a>
+                    </div><!--social-icons-->
+                    <p>Assine nossa news</p>
+
+                    <form action="" class="search">
+                        <input type="text" class="field" placeholder="Digite seu email aqui">
+                        <input type="submit" name="search" class="btn" value="">
+                    </form>
+
+
+                </div><!--news-social-->
+                <div class="text-footer">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui, repellendus, modi, consectetur totam magni cum magnam eligendi eius ab a natus hic nam error itaque quae consequatur sunt reiciendis numquam suscipit et. Tempora, obcaecati, amet iusto nobis natus ullam beatae?</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum, ullam, quae, sequi quam soluta repudiandae molestiae non deserunt recusandae pariatur rerum odio dicta dignissimos explicabo error nobis eligendi maxime autem eveniet consequatur molestias distinctio nulla illo amet odit repellat sed qui commodi sunt obcaecati facere incidunt dolor iste. Magni, corporis voluptas fuga possimus voluptatibus laudantium dolor quaerat illo iusto delectus doloremque quas perspiciatis provident minus assumenda inventore iste cumque earum rerum saepe pariatur suscipit odit. Dolores, ab, veritatis ea nisi blanditiis dolor ipsum repudiandae ratione dolore harum impedit quam voluptate provident architecto sequi cum error voluptatem nihil eum quisquam doloribus reiciendis mollitia quo reprehenderit nulla eos voluptas sed veniam inventore accusantium rerum rem iusto aliquam! Nemo, quas labore dolore voluptatum esse et veniam porro autem reprehenderit beatae molestiae quis repellendus! Enim, odio, in, et, ut alias est ipsa numquam praesentium sed autem ea neque provident cum unde rerum nam molestias! Placeat, voluptas, cum, aliquam sequi necessitatibus ex in quidem aut vero quibusdam quas modi ipsum. Iste, distinctio ducimus animi quasi reprehenderit voluptas atque sint! Quis, eum, enim corrupti ipsa harum deserunt hic doloremque. Error, beatae, laudantium, quidem earum sunt illum ea cupiditate recusandae dicta assumenda eaque corrupti dolores est nam.</p>
+                </div>
+                <div class="copy">
+                    <p>Copyright 2013 socialfunding.com.br - Todos os direitos reservados</p>
+                </div><!--copy-->
+            </div><!--footer-wrapper-->
+        </footer><!--footer-->
+        <script src="{{ asset('bundles/frontend/js/jcarousel.js') }}"></script>
+        <script>
+            $(document).ready(function(){
+                $('.carousel-reviewers')
+                        .jcarousel({
+                            wrap: 'circular'
+                        })
+                        .jcarouselAutoscroll({
+                            interval: 4998,
+                            target: '+=1',
+                            autostart: true
+                        });
+
+                $(function() {
+                    $('.carousel-hero').jcarousel({
+                        wrap: 'circular'
+                    });
+
+
+                    $('.carousel-next').jcarouselControl({
+                        target: '+=1'
+                    });
+                });
+            });
+        </script>
+    </body>
+</html>

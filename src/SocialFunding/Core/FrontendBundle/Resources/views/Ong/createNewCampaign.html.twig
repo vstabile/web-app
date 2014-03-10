@@ -1,0 +1,126 @@
+{% extends 'FrontendBundle::layout_ong.html.twig' %}
+
+{% block body %}
+    <main>
+        <div class="wrapper">
+            <div class="product">
+                <div class="select-product">
+                    <h1>Selecione a quantidade necessária de cada produto</h1>
+                    <form action="{{ path('ong_create_new_campaign') }}" method="POST" enctype="multipart/form-data">
+                        {% for productSelected in selectedProductsList %}
+                            <div class="product-available-gray product-general">
+                                <div class="product-area">
+                                    <a href="#">
+                                        {% if productSelected.IntegrationEnginePartner.id == 10 %}
+                                            <img src="http://imagens.pontofrio.com.br/Control/ArquivoExibir.aspx?IdArquivo={{ productSelected.imageSmall }}" alt="">
+                                        {% elseif productSelected.IntegrationEnginePartner.id == 11 %}
+                                            <img src="http://imagens.extra.com.br/Control/ArquivoExibir.aspx?IdArquivo={{ productSelected.imageSmall }}" alt="">
+                                        {% else %}
+                                            <img src="http://imagem.casasbahia.com.br/Control/ArquivoExibir.aspx?IdArquivo={{ productSelected.imageSmall }}" alt="">
+                                        {% endif %}
+                                        <span>{{ productSelected.name }}</span>
+                                        <div class="clearAll"></div>
+                                    </a>
+                                    <div class="clearAll"></div>
+                                </div><!--product-area-->
+                                <div class="clearAll"></div>
+                                <div class="product-area-separation"></div>
+                                <div class="clearAll"></div>
+                                <p class="product-area-qantity-price">Preço Unitário<br /><span>R${{ productSelected.priceFrom }}</span></p>
+                                <div class="clearAll"></div>
+                                <div class="product-quantity-selection-area">
+                                    <span>Quantidade</span>
+                                    <div class="clearAll"></div>
+                                    <input type="number" value="1" class="numeric-total" name="quantity[]" min="1" max="100">
+                                </div>
+                            </div><!--product-pink-->
+                            <input type="hidden" name="selectedProducts[]" value="{{ productSelected.id }}" />
+                        {% endfor %}
+                        <div class="clearAll"></div>
+                        <p class="product-quantity-description">Quantidade Total: <span id="totalSelected">0</span>/100</p>
+                        <div class="left-information-block-gray">
+                            <span class="information-block-title">Informações da ONG</span>
+                            <div class="information-block-field-line">
+                                <label for="firstFile"><span id="firstPhoto">Escolher</span></label>
+                                <label for="firstFile"><span id="firstLabel">Foto 01</span></label>
+                                <input type="file" id="firstFile" name="coverPhoto[]">
+                            </div>
+                            <div class="clearAll"></div>
+                            <div class="information-block-field-line">
+                                <label for="secondFile"><span id="secondPhoto">Escolher</span></label>
+                                <label for="secondFile"><span id="secondLabel">Foto 02</span></label>
+                                <input type="file" id="secondFile" name="coverPhoto[]">
+                            </div>
+                            <div class="clearAll"></div>
+                            <div class="information-block-field-line">
+                                <label for="thirdFile"><span id="thirdPhoto">Escolher</span></label>
+                                <label for="thirdFile"><span id="thirdLabel">Foto 03</span></label>
+                                <input type="file" id="thirdFile" name="coverPhoto[]">
+                            </div>
+                            <div class="clearAll"></div>
+                            <div class="information-block-field-line">
+                                <span class="information-block-title">Titulo 01</span>
+                                <textarea name="description-1"></textarea>
+                            </div>
+                            <div class="information-block-field-line">
+                                <span class="information-block-title">Titulo 02</span>
+                                <textarea name="description-2"></textarea>
+                            </div>
+                        </div>
+                        <div class="right-information-block-gray">
+                            <span class="information-block-title">Endereço de Entrega</span>
+                            <p>{{ ong.address }}, {{ ong.complement }}</p>
+                            <p>{{ ong.neighborhood }}, {{ ong.city }} - {{ ong.state }}</p>
+                            <p>{{ ong.cep }}</p>
+                            <span class="lastTitle information-block-title">Contato</span>
+                            <p>E-mail</p>
+                            <p>{{ ong.email }}</p>
+                            <p>Telefone</p>
+                            <p>{{ ong.phone }}</p>
+                        </div>
+                        <div class="clearAll"></div>
+                        <div class="activate-campaign">
+                            <div class="clearAll"></div>
+                            <input type="submit" value="ATIVAR CAMPANHA" />
+                            <div class="clearAll"></div>
+                        </div>
+                    </form>
+                </div><!--select-product-->
+            </div><!--product-->
+        </div><!--wrapper-->
+    </main>
+
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <script>
+        $(document).ready(function(){
+            function getTotalSelected () {
+                var totalSelected = 0;
+                $('.numeric-total').each(function(){
+                    totalSelected+= parseInt($(this).val());
+                });
+                return totalSelected;
+            }
+            $('#totalSelected').html(getTotalSelected());
+            $(function() {
+                $( "#tabs" ).tabs();
+            });
+
+            $(".logged").click(function(){
+                $(".logged-menu").toggle();
+            });
+
+            $('.numeric-total').change(function(event) {
+                var totalSelected = getTotalSelected();
+                if (totalSelected > 100) {
+                    $(this).val($(this).val()-1);
+                    event.preventDefault();
+                } else {
+                    //totalSelected = totalSelected+1;
+                    $('#totalSelected').html(totalSelected);
+                }
+            });
+
+        });
+    </script>
+{% endblock %}
+

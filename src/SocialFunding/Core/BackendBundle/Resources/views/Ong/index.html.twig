@@ -1,0 +1,29 @@
+{% extends 'BackendBundle::layout.html.twig' %}
+
+{% block body %}
+    <h2>Listar ONGs</h2>
+    <div id="dt1" class="no_margin">
+        <table class="display datatable">
+            <thead>
+                <tr>
+                    <th>ONG</th>
+                    <th>Total de Campanhas</th>
+                    <th>Nome do Resposável</th>
+                    <th>E-mail</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ong in allOngs %}
+                <tr class="gradeX">
+                    <td>{{ ong.nomeFantasia }}</td>
+                    <td><a href="#">{{ ong.campaigns|length }} Campanhas</a></td>
+                    <td>{{ ong.nomeResponsavel }}</td>
+                    <td>{{ ong.email }}</td>
+                    <td>Editar</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

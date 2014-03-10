@@ -1,0 +1,6 @@
+services:
+    socialfunding_ong.registration.form.type:
+        class: SocialFunding\Core\FrontendBundle\Form\Type\OngRegistrationFormType
+        arguments: [%fos_user.model.user.class%]
+        tags:
+            - { name: form.type, alias: socialfunding_ong_registration }

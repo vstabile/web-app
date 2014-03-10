@@ -1,0 +1,31 @@
+{% extends 'BackendBundle::layout.html.twig' %}
+
+{% block body %}
+    <h2>Listar ONGs</h2>
+    <div id="dt1" class="no_margin">
+        <table class="display datatable">
+            <thead>
+                <tr>
+                    <th>ONG</th>
+                    <th>Data Inicial</th>
+                    <th>Data Final</th>
+                    <th>Aprovada</th>
+                    <th>Ativa</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for campaign in campaignList %}
+                <tr class="gradeX">
+                    <td>{{ campaign.ong.nomeFantasia }}</td>
+                    <td>{{ campaign.initialDate|date("d/m/Y") }}</td>
+                    <td>{{ campaign.finalDate|date("d/m/Y") }}</td>
+                    <td>{% if campaign.isApproved == 0 %} Pendente {% else %} Aprovada {% endif %}</td>
+                    <td>{% if campaign.isActive == 0 %} Inativa {% else %} Ativa {% endif %}</td>
+                    <td><a href="{{ path('backend_ong_activate_campaign', { id: campaign.id}) }}">Aprovar Campanha</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

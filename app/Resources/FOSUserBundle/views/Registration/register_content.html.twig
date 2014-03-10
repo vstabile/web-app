@@ -1,0 +1,134 @@
+<h2>CADASTRAR ONG</h2>
+<form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">
+    {{ form_errors(form) }}
+    {{ form_widget(form._token) }}
+    <div class="main-cadastro-ong" style="background: #f5f5f5; width: 630px; margin: 0 auto; padding: 20px 10px;">
+        <div class="left-block" style="float: left; width: 340px;">
+            <div class="main-cadastro-ong-line">
+                <span class="main-cadastro-ong-label" style="display: block; text-align: left;">
+                    {{ form_label(form.email) }}
+                </span>
+                <div class="main-cadastro-ong-input" style="float: left">
+                    {{ form_widget(form.email) }}
+                    {{ form_errors(form.email) }}
+                </div>
+            </div>
+            <div style="clear: both;"></div>
+            <div class="main-cadastro-ong-line">
+                <span class="main-cadastro-ong-label" style="display: block; text-align: left;">
+                    {{ form_label(form.plainPassword.first) }}
+                </span>
+                <div class="main-cadastro-ong-input" style="float: left">
+                    {{ form_widget(form.plainPassword.first) }}
+                    {{ form_errors(form.plainPassword.first) }}
+                </div>
+            </div>
+            <div style="clear: both;"></div>
+            <div class="main-cadastro-ong-line">
+                <span class="main-cadastro-ong-label" style="display: block; text-align: left;">
+                    {{ form_label(form.plainPassword.second) }}
+                </span>
+                <div class="main-cadastro-ong-input" style="float: left">
+                    {{ form_widget(form.plainPassword.second) }}
+                </div>
+            </div>
+            <div style="clear: both;"></div>
+            <div class="main-cadastro-ong-line">
+                <span class="main-cadastro-ong-label" style="display: block; text-align: left;">
+                    {{ form_label(form.document) }}
+                </span>
+                <div class="main-cadastro-ong-input" style="float: left">
+                    {{ form_widget(form.document) }}
+                    {{ form_errors(form.document) }}
+                </div>
+            </div>
+            <div style="clear: both;"></div>
+            <div class="main-cadastro-ong-line">
+                <span class="main-cadastro-ong-label" style="display: block; text-align: left;">
+                    {{ form_label(form.razaoSocial) }}
+                </span>
+                <div class="main-cadastro-ong-input" style="float: left">
+                    {{ form_widget(form.razaoSocial) }}
+                    {{ form_errors(form.razaoSocial) }}
+                </div>
+            </div>
+            <div style="clear: both;"></div>
+            <div class="main-cadastro-ong-line">
+                <span class="main-cadastro-ong-label" style="display: block; text-align: left;">
+                    {{ form_label(form.nomeFantasia) }}
+                </span>
+                <div class="main-cadastro-ong-input" style="float: left">
+                    {{ form_widget(form.nomeFantasia) }}
+                    {{ form_errors(form.nomeFantasia) }}
+                </div>
+            </div>
+            <div style="clear: both;"></div>
+        </div>
+        <div class="right-block" style="float: left;">
+            <div class="main-cadastro-ong-line">
+                <span class="main-cadastro-ong-label" style="display: block; text-align: left;">
+                    {{ form_label(form.cep) }}
+                </span>
+                <div class="main-cadastro-ong-input" style="float: left">
+                    {{ form_widget(form.cep) }}
+                    {{ form_errors(form.cep) }}
+                </div>
+            </div>
+            <div style="clear: both;"></div>
+            <div class="main-cadastro-ong-line">
+                <span class="main-cadastro-ong-label" style="display: block; text-align: left;">
+                    {{ form_label(form.address) }}
+                </span>
+                <div class="main-cadastro-ong-input" style="float: left">
+                    {{ form_widget(form.address) }}
+                    {{ form_errors(form.address) }}
+                </div>
+            </div>
+            <div style="clear: both;"></div>
+            <div class="main-cadastro-ong-line">
+                <span class="main-cadastro-ong-label" style="display: block; text-align: left;">
+                    {{ form_label(form.complement) }}
+                </span>
+                <div class="main-cadastro-ong-input" style="float: left">
+                    {{ form_widget(form.complement) }}
+                    {{ form_errors(form.complement) }}
+                </div>
+            </div>
+            <div style="clear: both;"></div>
+            <div class="main-cadastro-ong-line">
+                <span class="main-cadastro-ong-label" style="display: block; text-align: left;">
+                    {{ form_label(form.neighborhood) }}
+                </span>
+                <div class="main-cadastro-ong-input" style="float: left">
+                    {{ form_widget(form.neighborhood) }}
+                    {{ form_errors(form.neighborhood) }}
+                </div>
+            </div>
+            <div style="clear: both;"></div>
+            <div class="main-cadastro-ong-line">
+                <span class="main-cadastro-ong-label" style="display: block; text-align: left;">
+                    {{ form_label(form.city) }}
+                </span>
+                <div class="main-cadastro-ong-input" style="float: left">
+                    {{ form_widget(form.city) }}
+                    {{ form_errors(form.city) }}
+                </div>
+            </div>
+            <div style="clear: both;"></div>
+            <div class="main-cadastro-ong-line">
+                <span class="main-cadastro-ong-label" style="display: block; text-align: left;">
+                    {{ form_label(form.state) }}
+                </span>
+                <div class="main-cadastro-ong-input" style="float: left">
+                    {{ form_widget(form.state) }}
+                    {{ form_errors(form.state) }}
+                </div>
+            </div>
+            <div style="clear: both;"></div>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+    <div>
+        <input type="submit" value="{{ 'registration.submit'|trans({}, 'FOSUserBundle') }}" />
+    </div>
+</form>

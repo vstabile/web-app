@@ -1,0 +1,138 @@
+{% extends 'FrontendBundle::layout.html.twig' %}
+
+{% block body %}
+	<main>
+		<div class="wrapper">
+			<span class="page-title">
+				<img src="{{ asset('bundles/frontend/images/liga-solidaria.png') }}" alt="{{ campaign.ong.nomeFantasia }}">
+				<h1>{{ campaign.ong.nomeFantasia }}</h1>
+			</span>
+            <div class="donate-basic-info">
+                <h2 class="donate-campaign-title">Selecione os produtos que deseja doar</h2>
+                <span class="right-info-block-remaining">
+                    <b>{{ remainingDays }}</b> Dias Restantes
+                </span>
+                <span class="right-info-block-purchased">
+                    <b>{{ totalPurchased }}</b> Produtos Arrecadados
+                </span>
+                <span class="right-info-block-meta">
+                    <b>{{ totalPercent }}%</b> da meta
+                </span>
+            </div>
+            <div class="clearAll"></div>
+            <form action="{{ path('checkout_index') }}" method="post">
+            {% for productSelected in campaign.products %}
+                <div class="product-available-gray product-general">
+                    <div class="product-area">
+                        <a href="#">
+                            {% if productSelected.product.IntegrationEnginePartner.id == 10 %}
+                                <img src="http://imagens.pontofrio.com.br/Control/ArquivoExibir.aspx?IdArquivo={{ productSelected.product.imageSmall }}" alt="">
+                            {% elseif productSelected.product.IntegrationEnginePartner.id == 11 %}
+                                <img src="http://imagens.extra.com.br/Control/ArquivoExibir.aspx?IdArquivo={{ productSelected.product.imageSmall }}" alt="">
+                            {% else %}
+                                <img src="http://imagem.casasbahia.com.br/Control/ArquivoExibir.aspx?IdArquivo={{ productSelected.product.imageSmall }}" alt="">
+                            {% endif %}
+                            <span>{{ productSelected.product.name }}</span>
+                            <div class="clearAll"></div>
+                        </a>
+                        <div class="clearAll"></div>
+                    </div><!--product-area-->
+                    <div class="clearAll"></div>
+                    <div class="product-area-separation"></div>
+                    <div class="clearAll"></div>
+                    <p class="product-area-qantity-price">Preço Unitário<br /><span>R${{ productSelected.product.priceFrom }}</span></p>
+                    <div class="clearAll"></div>
+                    <div class="product-quantity-selection-area-gray">
+                        <span>Quantidade</span>
+                        <div class="clearAll"></div>
+                        {% set maxProduct = productSelected.quantity-productSelected.quantityPurchased %}
+                        <input type="number" value="0" class="numeric-total" id="{{ productSelected.product.id }}" name="quantity[]" min="0" max="{{ maxProduct }}">
+                    </div>
+                </div><!--product-pink-->
+                <input type="hidden" name="selectedProducts[]" value="{{ productSelected.id }}" />
+            {% endfor %}
+                <input type="hidden" name="campaign" value="{{ campaign.id }}" />
+                <div class="clearAll"></div>
+                <div class="donate-info-block">
+                    <div class="donate-selected-products">
+                        <span class="selectedItens">0</span> <span>Produtos Selecionados</span>
+                    </div>
+                    <div class="donate-total-products">
+                        <p>Preço Total</p>
+                        <span>R$</span><span class="totalPrice">0,00</span>
+                    </div>
+                    <div class="donate-confirm"><button>Concluir Doação</button></div>
+                </div>
+                <div class="clearAll"></div>
+            </form>
+		</div><!--wrapper-->
+	</main>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <script>
+        $(document).ready(function(){
+
+            var products = new Array();
+            {% for productSelected in campaign.products %}
+            products[{{ productSelected.product.id }}] = {{ productSelected.product.priceFrom }};
+            {% endfor %}
+
+            $(function() {
+                $( "#tabs" ).tabs();
+            });
+
+            $('.carousel-about').jcarousel({
+                wrap: 'circular'
+            })
+            $('.carousel-pagination')
+                    .on('jcarouselpagination:active', 'a', function() {
+                        $(this).addClass('active');
+                    })
+                    .on('jcarouselpagination:inactive', 'a', function() {
+                        $(this).removeClass('active');
+                    })
+                    .jcarouselPagination();
+
+            $('#donate').click(function(){
+                var campaignId = $('#campaignId').val();
+                var route = '{{ path('search_campaign_donate', {'campaignId': "PLACEHOLDER" }) }}';
+                window.location=route.replace("PLACEHOLDER", campaignId);
+            });
+
+            function getTotalValue () {
+                var totalSelected = 0;
+                $('.numeric-total').each(function(){
+                    var productValue = parseFloat(products[$(this).attr('id')]);
+                    var totalSpent = productValue*parseInt($(this).val());
+                    totalSelected+= totalSpent;
+                });
+                return totalSelected;
+            }
+
+            function getTotalSelected () {
+                var totalSelected = 0;
+                $('.numeric-total').each(function(){
+                    totalSelected+= parseInt($(this).val());
+                });
+                return totalSelected;
+            }
+            $('#totalSelected').html(getTotalSelected());
+
+            $('.numeric-total').change(function(event) {
+                var totalSelected = getTotalSelected();
+                if (totalSelected > 100) {
+                    $(this).val($(this).val()-1);
+                    event.preventDefault();
+                } else {
+                    //totalSelected = totalSelected+1;
+                    $('.totalPrice').html(getTotalValue);
+                    $('.selectedItens').html(totalSelected);
+                }
+            });
+
+        });
+    </script>
+{% endblock %}

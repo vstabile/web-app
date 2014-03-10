@@ -1,0 +1,138 @@
+{% extends 'FrontendBundle::layout_ong.html.twig' %}
+
+{% block body %}
+    <main>
+        <div class="wrapper">
+            <div class="dashboard" id="tabs">
+			<span class="page-title pull-left">
+				<img src="{{ asset('bundles/frontend/images/liga-solidaria.png') }}" alt="Liga Solidária">
+				<h1>{{ ong.nomeFantasia }}</h1>
+				<h2>Subtítulo</h2>
+			</span>
+
+                <button class="btn-top">Criar campanha</button>
+
+                <nav class="tab-menu">
+                    <ul>
+                        <li><a href="#tabs-1">Geral</a></li>
+                        <li><a href="#tabs-2">Campanhas</a></li>
+                    </ul>
+                </nav><!--tab-menu-->
+
+                <section class="tab-general" id="tabs-1">
+                    <section class="status">
+                        <h2>Status da campanha atual</h2>
+                        <a href="{{ activeCampaign.id }}" class="link">Ver campanha</a>
+                        <div class="donate-status">
+                            <p class="type-status">Ativa</p>
+                            <p class="percent-meta-status"><span>{{ totalPercent }}%</span> da meta</p>
+                            <p class="products-status"><span>{{ totalPurchased }}</span> Produtos <br />Arrecadados</p>
+                            <p class="days-status"><span>{{ remainingDays }}</span> Dias <br />Restantes</p>
+                            <a href="#" class="desactive-campaign">Inativar Campanha</a>
+                        </div><!--donate-status-->
+                    </section><!--status-->
+
+                    <section class="campaign">
+                        <h2>Campanha</h2>
+                        <div class="circle-status">
+                            <p class="circle-type-status-1"><span>{{ totalActiveCampaigns }}</span> <br />Ativa</p>
+                            <p class="circle-type-status-2"><span>{{ underModeration }}</span> <br />Em moderação</p>
+                            <p class="circle-type-status-3"><span>{{ allDone }}</span> <br />Concluidas</p>
+                            {#<p class="circle-type-status-4"><span>999</span> <br />Canceladas</p>#}
+                        </div><!--circle-status-->
+                    </section><!--campaign-->
+
+                    <button class="btn-bottom">Criar campanha</button>
+                </section><!--tab-general-->
+
+                <section class="tab-campaign" id="tabs-2">
+                    <section class="status">
+                        <div class="campaign-heading">
+                            <h2>Campanha atual</h2>
+                            <span>-</span>
+                            <a href="#" class="link">Ver campanha</a>
+                        </div><!--campaign-title-->
+                        <a href="" class="desactive-campaign">Inativar Campanha</a>
+                        <div class="donate-status">
+                            <p class="type-status">Ativa</p>
+                            <p class="percent-meta-status"><span>{{ totalPercent }}%</span> da meta</p>
+                            <p class="products-status"><span>{{ totalPurchased }}</span> Produtos <br />Arrecadados <br /> <span class="value-colected">R${{ totalValuePurchased }} em produtos</span></p>
+                            <p class="days-status"><span>{{ remainingDays }}</span> Dias <br />Restantes</p>
+                            <table class="cart-campaign">
+                                <tr>
+                                    <th>Produto</th>
+                                    <th>Quantidade doada</th>
+                                </tr>
+                                {% for actualCampaignProducts in activeCampaign.products %}
+                                    <tr>
+                                        <td>{{ actualCampaignProducts.product.name }}</td>
+                                        <td>{{ actualCampaignProducts.quantityPurchased }}/{{ actualCampaignProducts.quantity }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </table>
+                        </div><!--donate-status-->
+                        <section class="history">
+                            <div class="history-campaign">
+                                <h2>Histórico</h2>
+                                {#<h3>Campanha 04</h3>#}
+                                {#<span class="date-launch">Criada em 07/12/2013 as 23:53</span>#}
+                                {#<p class="type-status-history">Concluída</p>#}
+                                {#<p class="percent-meta-history"><span>100%</span> da meta</p>#}
+                                {#<p class="products-history"><span>99999</span> Produtos <br />Arrecadados</p>#}
+                                {#<p class="days-history">R$ 300 EM PRODUTOS</p>#}
+                            </div><!--history-campaign-->
+                            {#<div class="history-campaign">#}
+                                {#<h3>Campanha 04</h3>#}
+                                {#<span class="date-launch">Criada em 07/12/2013 as 23:53</span>#}
+                                {#<p class="type-status-history">Concluída</p>#}
+                                {#<p class="percent-meta-history"><span>100%</span> da meta</p>#}
+                                {#<p class="products-history"><span>99999</span> Produtos <br />Arrecadados</p>#}
+                                {#<p class="days-history">R$ 300 EM PRODUTOS</p>#}
+                            {#</div><!--history-campaign-->#}
+                            {#<div class="history-campaign">#}
+                                {#<h3>Campanha 04</h3>#}
+                                {#<span class="date-launch">Criada em 07/12/2013 as 23:53</span>#}
+                                {#<p class="type-status-history">Concluída</p>#}
+                                {#<p class="percent-meta-history"><span>100%</span> da meta</p>#}
+                                {#<p class="products-history"><span>99999</span> Produtos <br />Arrecadados</p>#}
+                                {#<p class="days-history">R$ 300 EM PRODUTOS</p>#}
+                            {#</div><!--history-campaign-->#}
+                            {#<div class="history-campaign">#}
+                                {#<h3>Campanha 04</h3>#}
+                                {#<span class="date-launch">Criada em 07/12/2013 as 23:53</span>#}
+                                {#<p class="type-status-history">Concluída</p>#}
+                                {#<p class="percent-meta-history"><span>100%</span> da meta</p>#}
+                                {#<p class="products-history"><span>99999</span> Produtos <br />Arrecadados</p>#}
+                                {#<p class="days-history">R$ 300 EM PRODUTOS</p>#}
+                            {#</div><!--history-campaign-->#}
+                        </section><!--history-->
+
+                    </section><!--status-->
+
+                </section><!--tab-donors-->
+            </div><!--about-->
+        </div><!--wrapper-->
+    </main>
+
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".btn-bottom").click(function(){
+                window.location = "{{ path('ong_create_campaign') }}";
+            });
+
+            $(".btn-top").click(function(){
+                window.location = "{{ path('ong_create_campaign') }}";
+            });
+
+            $(function() {
+                $( "#tabs" ).tabs();
+            });
+
+            $(".logged").click(function(){
+                $(".logged-menu").toggle();
+            });
+
+        });
+    </script>
+{% endblock %}

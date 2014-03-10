@@ -1,0 +1,219 @@
+{% extends 'FrontendBundle::layout.html.twig' %}
+
+{% block body %}
+    <div id="boxes">
+        <div id="dialog" class="window">
+				<span class="wrap-close">
+					<a href="#" class="close"><img src="{{ asset('bundles/frontend/images/close.png') }}" alt="Fechar janela" width="13" height="13"></a>
+				</span>
+            <h2>Código de Segurança do Cartão</h2>
+            <div class="modal-content">
+                <h3>O que é?</h3>
+                <p>O código de segurança do cartão de crédito é uma sequência numérica complementar ao número do cartão, que garante a veracidade dos dados de uma transação eletrônica.</p>
+                <div class="pull-left">
+                    <img src="{{ asset('bundles/frontend/images/cvv.png') }}" alt="Localização do código de segurança" width="190" height="239">
+                </div><!--pull-left-->
+                <div class="pull-right">
+                    <p>O <strong>código de segurança</strong> dos cartões com Bandeira <strong>VISA / MasterCard</strong>  está <strong>localizado no verso</strong> do cartão e corresponde aos três últimos dígitos da faixa numérica.</p>
+                    <h3>AMERICAN EXPRESS</h3>
+                    <p>O <strong>código de segurança</strong> está <strong>localizado na parte frontal do cartão</strong> <strong>AMERICAN EXPRESS</strong> e corresponde aos 4 dígitos localizados do lado direito acima da faixa numérica do seu cartão.</p>
+                </div><!--pull-right-->
+            </div><!--modal-content-->
+        </div><!--dialog-->
+        <div id="mask"></div>
+    </div><!--boxes-->
+    <main>
+        <div class="checkout wrapper">
+			<span class="page-title">
+				<img src="{{ asset('bundles/frontend/images/liga-solidaria.png') }}" alt="{{ campaign.ong.nomeFantasia }}">
+				<h1>{{ campaign.ong.nomeFantasia }}</h1>
+			</span>
+            <table class="cart">
+                <tr>
+                    <th>Produto</th>
+                    <th>Preço Unitário</th>
+                    <th>Quantidade</th>
+                    <th>Total</th>
+                </tr>
+                {% for productSelected in cart.product %}
+                    {% set totalValue = productSelected.price*productSelected.quantity %}
+                    <tr>
+                        <td>{{ productSelected.name }}</td>
+                        <td>R$ {{ productSelected.price }}</td>
+                        <td>{{ productSelected.quantity }}</td>
+                        <td>R$ {{ totalValue }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+            <form action="{{ path('checkout_process_checkout') }}" class="form-client" method="post">
+            <section class="box">
+                <h2>Cliente</h2>
+                <p class="ame">{{ costumer.firstname }} {{ costumer.lastname }}</p>
+                <p class="email">{{ costumer.email }}</p>
+                    <h3>Informações de Cobrança</h3>
+                    <label for="">Nome Completo</label>
+                    <input type="text" name="costumer-name" value="{{ costumer.firstname }} {{ costumer.lastname }}" class="field">
+                    <ul class="inline-fields">
+                        <li>
+                            <label for="">Telefone</label>
+                            <input type="text" name="phone" class="field-half">
+                        </li>
+                        <li>
+                            <label for="">Celular</label>
+                            <input type="text"  name="celphone" class="field-half">
+                        </li>
+                    </ul>
+                    <ul class="inline-field-link">
+                        <li>
+                            <label for="">CEP</label>
+                            <input type="text" name="zipcode" class="field-half">
+                        </li>
+                        <li>
+                            <a href="http://www.buscacep.correios.com.br/" title="Busque o seu CEP">Não sabe seu CEP</a>
+                        </li>
+                    </ul>
+                    <label for="">Endereço</label>
+                    <input type="text" class="field" name="address" placeholder="rua, número">
+                    <label for="">Complemento</label>
+                    <input type="text" class="field" name="complement" placeholder="apto., bloco, casa">
+                    <label for="neighborhood">Bairro</label>
+                    <input type="text" class="field" id="neighborhood" name="neighborhood">
+                    <ul class="inline-fields">
+                        <li>
+                            <label for="city">Cidade</label>
+                            <input type="text" name="city" class="field-half">
+                        </li>
+                        <li>
+                            <label for="state">Estado</label>
+                            <select name="state" id="state" class="field-half">
+                                <option value="estado">Selecione</option>
+                                <option value="AC">Acre</option>
+                                <option value="AL">Alagoas</option>
+                                <option value="AM">Amazonas</option>
+                                <option value="AP">Amapá</option>
+                                <option value="BA">Bahia</option>
+                                <option value="CE">Ceará</option>
+                                <option value="DF">Distrito Federal</option>
+                                <option value="ES">Espírito Santo</option>
+                                <option value="GO">Goiás</option>
+                                <option value="MA">Maranhão</option>
+                                <option value="MT">Mato Grosso</option>
+                                <option value="MS">Mato Grosso do Sul</option>
+                                <option value="MG">Minas Gerais</option>
+                                <option value="PA">Pará</option>
+                                <option value="PB">Paraíba</option>
+                                <option value="PR">Paraná</option>
+                                <option value="PE">Pernambuco</option>
+                                <option value="PI">Piauí</option>
+                                <option value="RJ">Rio de Janeiro</option>
+                                <option value="RN">Rio Grande do Norte</option>
+                                <option value="RO">Rondônia</option>
+                                <option value="RS">Rio Grande do Sul</option>
+                                <option value="RR">Roraima</option>
+                                <option value="SC">Santa Catarina</option>
+                                <option value="SE">Sergipe</option>
+                                <option value="SP">São Paulo</option>
+                                <option value="TO">Tocantins</option>
+                            </select>
+                        </li>
+                        </li>
+                    </ul>
+            </section><!--cliente-->
+            <section class="box middle">
+                <h2>Pagamento</h2>
+                <h3>Cartão de Crédito</h3>
+                    <ul class="flags">
+                        <li><span class="cc_mastercard"></span></li>
+                        <li><span class="cc_visa"></span></li>
+                        <li><span class="cc_americanexpress"></span></li>
+                        <li><span class="cc_aura"></span></li>
+                        <li><span class="cc_dinners"></span></li>
+                        <li><span class="cc_elo"></span></li>
+                    </ul>
+                    <label for="">Nome no Cartão</label>
+                    <input type="text" name="cc_id_name" class="field" placeholder="Digite o nome aqui">
+                    <label for="">Número do Cartão</label>
+                    <input type="text" name="cc_number" class="field" placeholder="Digite o número aqui">
+                    <label for="">Data de Vencimento</label>
+                    <ul class="inline-fields">
+                        <li>
+                            <select name="cc_expiration_month" class="field-half">
+                                <option value="1">01</option>
+                                <option value="2">02</option>
+                                <option value="3">03</option>
+                                <option value="4">04</option>
+                                <option value="5">05</option>
+                                <option value="6">06</option>
+                                <option value="7">07</option>
+                                <option value="8">08</option>
+                                <option value="9">09</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                            </select>
+                        </li>
+                        <li>
+                            <select name="cc_expiration_year" class="field-half">
+                                <option value="2014">2014</option>
+                                <option value="2015">2015</option>
+                                <option value="2016">2016</option>
+                                <option value="2017">2017</option>
+                                <option value="2018">2018</option>
+                                <option value="2019">2019</option>
+                                <option value="2020">2020</option>
+                            </select>
+                        </li>
+                    </ul>
+                    <label for="">Código de Segurança</label>
+                    <ul class="inline-field-link">
+                        <li>
+                            <input type="text" class="field-half" name="cc_security">
+                        </li>
+                        <li>
+                            <a href="#dialog" name="modal" title="Entende como localizar o CVV do seu cartão">O que é?</a>
+                        </li>
+                    </ul>
+                    <label for="">CPF do Titular do Cartão</label>
+                    <input type="text" name="cc_id_number" class="field" placeholder="Digite o número aqui">
+                    {#<label for="">Número de Parcelas</label>#}
+                    {#<select name="cc_instalmentcount" id="" class="field">#}
+                        {#<option value="1">1x de R$11,40</option>#}
+                        {#<option value="2">2x de R$11,40</option>#}
+                        {#<option value="3">3x de R$11,40</option>#}
+                        {#<option value="4">4x de R$11,40</option>#}
+                    {#</select>#}
+            </section><!--pagamento-->
+            <section class="box">
+                <h2>Doar</h2>
+                <h3>Resumo da Doação</h3>
+                <table class="resume-cart">
+                    <tr>
+                        <td>Quantidade total de produtos</td>
+                        <td>{{ cart.totalProducts }}</td>
+                    </tr>
+                    <tr>
+                        <td>Valor total dos produtos</td>
+                        <td>R$: {{ cart.valueTotalProducts }}</td>
+                    </tr>
+                    {#<tr>#}
+                        {#<td>Despesas com frete</td>#}
+                        {#<td>R$: 1,50</td>#}
+                    {#</tr>#}
+                    {#<tr>#}
+                        {#<td>Valor total a pagar</td>#}
+                        {#<td>R$: 11,40</td>#}
+                    {#</tr>#}
+                </table>
+                <div itemscope="" itemtype="http://schema.org/LocalBusiness" class="address">
+                    <p class="ong-name">ONG: <span itemprop="name"><h1>{{ campaign.ong.nomeFantasia }}</h1></span></p>
+                    <div itemprop="address" itemscope="" itemtype="http://schema.org/PostalAddress">
+                        <p><span class="bold">Endereço: </span><span itemprop="streetAddress">Rua araritaguaba, 345,<br /> Vila Medeiros</span>, <span itemprop="addressLocality">São Paulo</span> - <span itemprop="addressRegion">SP</span></p>
+                    </div><!-- Postal Address -->
+                </div>
+                <button type="submit" class="btn-submit"><span class="icon-heart"></span>Confirmar Doação</button>
+            </section><!--doar-->
+            </form><!--form-payment-->
+        </div>
+    </main>
+{% endblock %}
+

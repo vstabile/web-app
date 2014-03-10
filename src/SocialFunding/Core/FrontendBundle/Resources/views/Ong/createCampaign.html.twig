@@ -1,0 +1,208 @@
+{% extends 'FrontendBundle::layout_ong.html.twig' %}
+
+{% block body %}
+    <main>
+        <div class="wrapper">
+            <div class="product">
+                <div class="select-product">
+                    <h1>Selecione os produtos para doação</h1>
+                    <form action="{{ path('ong_create_new_campaign') }}" method="POST">
+                        {% for productSelected in selectedProductsList %}
+                            <div class="product-pink product-general">
+                                <a href="#" class="trash removeItem" id="{{ productSelected.id }}"><img src="{{ asset('bundles/frontend/images/trash.png') }}" alt="Excluir" title="Excluir Produto" ></a>
+                                <div class="product-area">
+                                    <a href="#">
+                                        {% if productSelected.IntegrationEnginePartner.id == 10 %}
+                                            <img src="http://imagens.pontofrio.com.br/Control/ArquivoExibir.aspx?IdArquivo={{ productSelected.imageSmall }}" alt="">
+                                        {% elseif productSelected.IntegrationEnginePartner.id == 11 %}
+                                            <img src="http://imagens.extra.com.br/Control/ArquivoExibir.aspx?IdArquivo={{ productSelected.imageSmall }}" alt="">
+                                        {% else %}
+                                            <img src="http://imagem.casasbahia.com.br/Control/ArquivoExibir.aspx?IdArquivo={{ productSelected.imageSmall }}" alt="">
+                                        {% endif %}
+                                        <span>{{ productSelected.name }}</span>
+                                    </a>
+                                </div><!--product-area-->
+                            </div><!--product-pink-->
+                            <input type="hidden" name="selectedProducts[]" value="{{ productSelected.id }}" />
+                        {% endfor %}
+                        {% if selectedProductsList|length < 4 %}
+                            {% for i in selectedProductsList|length..3 %}
+                                <div class="product-gray product-general">
+                                <p>Selecione um Produto</p>
+                                </div><!--product-pink-->
+                            {% endfor %}
+                        {% endif %}
+                        <div class="product-continue">
+                            <h2><span class="totalSelectedItens">{{ selectedProductsList|length }}</span> produtos selecionados</h2>
+                            <p>Você pode selecionar até <span>4</span> produtos</p>
+                            <button>Continuar</button>
+                        </div><!--product-continue-->
+                    </form>
+                </div><!--select-product-->
+                <aside class="sidebar-product">
+                    <ul>
+                        {% if categoryList is defined %}
+                            {% for cat in categoryList %}
+                                <li>
+                                    <a href="#">Categoria</a>
+                                    <ul>
+                                    {% for catFinal in cat %}
+                                        <li>
+                                            <a href="?partner={{ catFinal.integrationEnginePartner.id }}&category={{ catFinal.categoryId }}">{{ catFinal.name }}</a>
+                                        </li>
+                                    {% endfor %}
+                                    </ul>
+                                </li>
+                            {% endfor %}
+                        {% endif %}
+                        {% if categoryListPontoFrio is defined %}
+                        <li>
+                            <a href="#">Ponto Frio</a>
+                            <ul>
+                                {% for category in categoryListPontoFrio %}
+                                    <li>
+                                        <a href="?partner={{ category.integrationEnginePartner.id }}&category={{ category.categoryId }}">{{ category.name }}</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                        {% endif %}
+                        {% if categoryListExtra is defined %}
+                        <li>
+                            <a href="#">Extra</a>
+                            <ul>
+                                {% for category in categoryListExtra %}
+                                    <li>
+                                        <a href="?partner={{ category.integrationEnginePartner.id }}&category={{ category.categoryId }}">{{ category.name }}</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                        {% endif %}
+                        {% if categoryListCasasBahia is defined %}
+                        <li>
+                            <a href="#">CasasBahia</a>
+                            <ul>
+                                {% for category in categoryListCasasBahia %}
+                                    <li>
+                                        <a href="?partner={{ category.integrationEnginePartner.id }}&category={{ category.categoryId }}">{{ category.name }}</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </aside><!--sidebar-product-->
+                <div class="product-showcase">
+                    <div class="order-search-product">
+                        {#<span>Ordenar por</span>#}
+                        {#<select name="" id="">#}
+                            {#<option value="">Mais Vendidos</option>#}
+                        {#</select>#}
+                        <form action="{{ path('ong_create_campaign') }}" method="get">
+                            <input type="submit" value="Buscar" class="send-product">
+                            <input type="text" placeholder="Pesquisar Produto" name="search_product" class="search-product">
+                        </form>
+                    </div><!--order-search-->
+                    {#<nav class="nav-product">#}
+                        {#<ul>#}
+                            {#<li><span>Páginas:</span></li>#}
+                            {#<li><a href="#">1</a></li>#}
+                            {#<li><a href="#">2</a></li>#}
+                            {#<li><a href="#" class="active">3</a></li>#}
+                            {#<li><a href="#">4</a></li>#}
+                            {#<li class="last"><a href="#" >5</a></li>#}
+                        {#</ul>#}
+                    {#</nav>#}
+                    <div class="showcase-select-product">
+                        {% if productList is defined %}
+                            <div class="item-shelf">
+                            {% for key,product in productList %}
+                                <div class="item">
+                                    <a href="#">
+                                        {% if product.IntegrationEnginePartner.id == 10 %}
+                                            <img src="http://imagens.pontofrio.com.br/Control/ArquivoExibir.aspx?IdArquivo={{ product.imageAverage }}" alt="">
+                                        {% elseif product.IntegrationEnginePartner.id == 11 %}
+                                            <img src="http://imagens.extra.com.br/Control/ArquivoExibir.aspx?IdArquivo={{ product.imageAverage }}" alt="">
+                                        {% else %}
+                                            <img src="http://imagem.casasbahia.com.br/Control/ArquivoExibir.aspx?IdArquivo={{ product.imageAverage }}" alt="">
+                                        {% endif %}
+                                        <span>{{ product.name }}</span>
+                                    </a>
+                                    {% if product.priceTo == '' %}
+                                        <p>R$ {{ product.priceFrom }}</p>
+                                    {% else %}
+                                        <p>R$ {{ product.priceTo }}</p>
+                                    {% endif %}
+                                    <button class="product-select" id="{{ product.id }}">Selecionar</button>
+                                </div><!--item-->
+                                {% if key%3 == 2 %}
+                                </div><!--item-shelf-->
+                                <div class="item-shelf">
+                                {% endif %}
+                            {% endfor %}
+                            </div><!--item-shelf-->
+                        {% endif %}
+                    </div><!--showcase-select-product-->
+                    {#<nav class="nav-product">#}
+                        {#<ul>#}
+                            {#<li><span>Páginas</span></li>#}
+                            {#<li><a href="#">1</a></li>#}
+                            {#<li><a href="#">2</a></li>#}
+                            {#<li><a href="#" class="active">3</a></li>#}
+                            {#<li><a href="#">4</a></li>#}
+                            {#<li class="last"><a href="#">5</a></li>#}
+                        {#</ul>#}
+                    {#</nav>#}
+                </div><!--product-showcase-->
+            </div><!--product-->
+        </div><!--wrapper-->
+    </main>
+
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(function() {
+                $( "#tabs" ).tabs();
+            });
+
+            $(".logged").click(function(){
+                $(".logged-menu").toggle();
+            });
+
+            $('.product-select').click(function(){
+                var currentProductId = $(this).attr("id");
+                var route = '{{ path('ong_select_product', {'id': "PLACEHOLDER" }) }}';
+                $.ajax({
+                    url: route.replace("PLACEHOLDER", currentProductId),
+                    dataType: 'json',
+                    success: function(data) {
+                        if (data == false) {
+                            alert('Limite máximo de produtos atingido');
+                        } else {
+                            location.reload();
+                        }
+                    }
+
+                });
+            });
+
+            $('.removeItem').click(function(){
+                var currentProductId = $(this).attr("id");
+                var route = '{{ path('ong_remove_product', {'id': "PLACEHOLDER" }) }}';
+                $.ajax({
+                    url: route.replace("PLACEHOLDER", currentProductId),
+                    dataType: 'json',
+                    success: function(data) {
+                        if (data == true) {
+                            location.reload();
+                        }
+                    }
+
+                });
+            });
+
+        });
+    </script>
+{% endblock %}
+

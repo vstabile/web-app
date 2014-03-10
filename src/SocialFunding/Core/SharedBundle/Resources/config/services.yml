@@ -1,0 +1,6 @@
+parameters:
+
+services:
+    novapontocom.update.category:
+        class: SocialFunding\Core\SharedBundle\IntegrationEngine\NovaPontoCom\Update\CategoryDailyUpdate
+        arguments: ['@service_container']

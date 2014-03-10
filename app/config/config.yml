@@ -1,0 +1,113 @@
+imports:
+    - { resource: parameters.yml }
+    - { resource: security.yml }
+
+framework:
+    #esi:             ~
+    translator:       ~
+    secret:          "%secret%"
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: ~
+    form:            ~
+    csrf_protection: ~
+    validation:      { enable_annotations: true }
+    templating:
+        engines: ['twig']
+        #assets_version: SomeVersionScheme
+    default_locale:  "%locale%"
+    trusted_hosts:   ~
+    trusted_proxies: ~
+    session:
+        # handler_id set to null will use default session handler from php.ini
+        handler_id:  ~
+    fragments:       ~
+    http_method_override: true
+
+# Twig Configuration
+twig:
+    debug:            "%kernel.debug%"
+    strict_variables: "%kernel.debug%"
+
+# Assetic Configuration
+assetic:
+    debug:          "%kernel.debug%"
+    use_controller: false
+    bundles:        [ ]
+    #java: /usr/bin/java
+    filters:
+        cssrewrite: ~
+        #closure:
+        #    jar: "%kernel.root_dir%/Resources/java/compiler.jar"
+        #yui_css:
+        #    jar: "%kernel.root_dir%/Resources/java/yuicompressor-2.4.7.jar"
+
+# Doctrine Configuration
+doctrine:
+    dbal:
+        driver:   "%database_driver%"
+        host:     "%database_host%"
+        port:     "%database_port%"
+        dbname:   "%database_name%"
+        user:     "%database_user%"
+        password: "%database_password%"
+        charset:  UTF8
+        # if using pdo_sqlite as your database driver, add the path in parameters.yml
+        # e.g. database_path: "%kernel.root_dir%/data/data.db3"
+        # path:     "%database_path%"
+
+    orm:
+        auto_generate_proxy_classes: "%kernel.debug%"
+        auto_mapping: true
+
+# Swiftmailer Configuration
+swiftmailer:
+    transport: "%mailer_transport%"
+    host:      "%mailer_host%"
+    username:  "%mailer_user%"
+    password:  "%mailer_password%"
+    spool:     { type: memory }
+
+services:
+    socialfunding_shared.command.novapontocom_category:
+        class: SocialFunding\Core\SharedBundle\Command\NovaPontoComCategoryDailyUpdate
+        tags:
+            -  { name: console.command }
+    socialfunding_shared.command.novapontocom_full:
+        class: SocialFunding\Core\SharedBundle\Command\NovaPontoComFullUpdate
+        tags:
+            -  { name: console.command }
+    socialfunding_shared.command.novapontocom_hourly:
+        class: SocialFunding\Core\SharedBundle\Command\NovaPontoComHourlyUpdate
+        tags:
+            -  { name: console.command }
+    socialfunding_shared.command.novapontocom_daily:
+        class: SocialFunding\Core\SharedBundle\Command\NovaPontoComPartialDailyUpdate
+        tags:
+            -  { name: console.command }
+
+    user_facebook_manager:
+        class: FOS\UserBundle\Doctrine\UserManager
+        arguments: [@security.encoder_factory, @fos_user.util.username_canonicalizer, @fos_user.util.email_canonicalizer, @fos_user.entity_manager, SocialFunding\Core\SharedBundle\Entity\Costumer]
+
+    my.facebook.user:
+        class: SocialFunding\Core\SharedBundle\User\Provider\FacebookProvider
+        arguments:
+            facebook: "@fos_facebook.api"
+            userManager: "@user_facebook_manager"
+            validator: "@validator"
+
+fos_user:
+    db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
+    firewall_name: main
+    user_class: SocialFunding\Core\SharedBundle\Entity\Ong
+    registration:
+        form:
+            type: socialfunding_ong_registration
+
+fos_facebook:
+    alias:  facebook
+    app_id: 215394431989535
+    secret: 074c316d5aa9cc5b27a0801714851163
+    cookie: true
+    permissions: [email, user_birthday, user_location]
