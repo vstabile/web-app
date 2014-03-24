@@ -1,0 +1,54 @@
+{% extends 'FrontendBundle::layout.html.twig' %}
+
+{% block body %}
+    <main>
+        <section class="posts-home">
+            <h4>Campanhas Encontradas</h4>
+            {% for recCampaign in recommendedCampaigns %}
+                <article class="post-door">
+                    <a href="{{ path('search_campaign_show', {'campaignId': recCampaign.id}) }}" title="{{ recCampaign.ong.nomeFantasia }}"><img src="{{ asset('bundles/frontend/images/liga.jpg') }}" alt="{{ recCampaign.ong.nomeFantasia }}"/></a>
+                    <a href="{{ path('search_campaign_show', {'campaignId': recCampaign.id}) }}" class="post-text">
+                        <h3>{{ recCampaign.ong.nomeFantasia }}</h3>
+                        <p>{{ recCampaign.ong.description }}</p>
+                    </a>
+                    <span>{{ recCampaign.ong.city }}, {{ recCampaign.ong.state }}</span>
+                    <div class="meta">
+                        {% for campaignProduct in recCampaign.products %}
+                            {{ campaignProduct.quantityPurchased }}
+                        {% endfor %}
+                    </div>
+                </article><!--post-door-->
+            {% endfor %}
+        </section><!--posts-home-->
+        <div class="content-wrapper">
+            <aside class="social">
+                <div class="fb-like-box" data-href="https://www.facebook.com/socialfundingbr" data-width="240" data-height="250" data-colorscheme="light" data-show-faces="true" data-header="false" data-stream="false" data-show-border="false"></div>
+                <div class="side-blog">
+                    <h5>Blog</h5>
+                    <article class="blog-post">
+                        <a href="" class="blog-post-title">Fotos de equipe Outubro de 2013</a>
+                        <span>23/10/2013</span>
+                        <a href="" class="blog-post-text"><p>Desde quinta passada (17/10/2013) o time do Catarse esteve reunido no QG do Rio para discutir rumos da plataforma. As atividade...</p></a>
+                    </article>
+                    <article class="blog-post">
+                        <a href="" class="blog-post-title">Fotos de equipe Outubro de 2013</a>
+                        <span>23/10/2013</span>
+                        <a href="" class="blog-post-text"><p>Desde quinta passada (17/10/2013) o time do Catarse esteve reunido no QG do Rio para discutir rumos da plataforma. As atividade...</p></a>
+                    </article>
+                    <article class="blog-post">
+                        <a href="" class="blog-post-title">Fotos de equipe Outubro de 2013</a>
+                        <span>23/10/2013</span>
+                        <a href="" class="blog-post-text"><p>Desde quinta passada (17/10/2013) o time do Catarse esteve reunido no QG do Rio para discutir rumos da plataforma. As atividade...</p></a>
+                    </article>
+
+                </div><!--side-blog-->
+                <div class="twitter-box">
+                    <a class="twitter-timeline" href="https://twitter.com/lzalcon" data-widget-id="414114585885421569">Tweets by @lzalcon</a>
+                    {#<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+":-//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>#}
+                </div><!--twitter-->
+            </aside><!--social-->
+        </div><!--content-wrapper-->
+
+    </main>
+{% endblock %}
+

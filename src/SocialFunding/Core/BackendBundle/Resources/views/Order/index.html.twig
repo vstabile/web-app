@@ -1,0 +1,29 @@
+{% extends 'BackendBundle::layout.html.twig' %}
+
+{% block body %}
+    <h2>Listar ONGs</h2>
+    <div id="dt1" class="no_margin">
+        <table class="display datatable">
+            <thead>
+                <tr>
+                    <th>Campanha</th>
+                    <th>Costumer</th>
+                    <th>Valor Total</th>
+                    <th>Total Produtos Doados</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in allOrders %}
+                <tr class="gradeX">
+                    <td>{{ order.campaign.id }}</td>
+                    <td>{{ order.costumer.firstName }} {{ order.costumer.lastName }}</a></td>
+                    <td>{{ order.totalPrice }}</td>
+                    <td>{{ order.totalQuantity }}</td>
+                    <td>Editar</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
