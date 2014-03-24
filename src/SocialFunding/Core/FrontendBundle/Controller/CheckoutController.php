@@ -2,6 +2,8 @@
 
 namespace SocialFunding\Core\FrontendBundle\Controller;
 
+use SocialFunding\Core\SharedBundle\Entity\Order;
+use SocialFunding\Core\SharedBundle\Entity\OrderProduct;
 use SocialFunding\Core\SharedBundle\Entity\Product;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -78,9 +80,10 @@ class CheckoutController extends Controller
         $cartInformation = $cart->getCart();
         $em = $this->get('doctrine')->getManager();
         $repoProduct = $em->getRepository('SharedBundle:Product');
-
-        var_dump($cartInformation);
-        exit();
+        $repoCampaign = $em->getRepository('SharedBundle:Campaign');
+        $repoOrderStatus = $em->getRepository('SharedBundle:OrderStatus');
+        $orderStatus = $repoOrderStatus->findOneByName('Pagamento Pendente');
+        $campaign = $repoCampaign->findOneById($cartInformation['campaign']);
 
         $costumer = $this->container->get('security.context')->getToken()->getUser();
         /** @var $costumer Costumer*/
@@ -104,8 +107,25 @@ class CheckoutController extends Controller
         $em->persist($costumer);
         $em->flush();
 
-        exit();
-        $productList = array();
+        $order = new Order();
+        $order->setCostumer($costumer);
+        $order->setCampaign($campaign);
+        foreach ($cartInformation['product'] as $productId => $productInfo) {
+            $orderProduct = new OrderProduct();
+            $orderProduct->setPrice($productInfo['price']);
+            $orderProduct->setProductId($productId);
+            $orderProduct->setQuantity($productInfo['quantity']);
+            $em->persist($orderProduct);
+            $order->addOrderProduct($orderProduct);
+        }
+        $order->setTotalPrice($cartInformation['valueTotalProducts']);
+        $order->setTotalQuantity($cartInformation['totalProducts']);
+        $order->addOrderStatus($orderStatus);
+
+        $em->persist($order);
+        $em->flush();
+
+        /*$productList = array();
         foreach ($cartInformation['product'] as $productId => $cartProduct) {
             $product = $repoProduct->findOneById($productId);
             $dadosListProductCart = new DadosListaProdutoCarinho();
@@ -124,7 +144,7 @@ class CheckoutController extends Controller
         }
 
         var_dump($outputCalculateCart);
-        exit();
+        exit();*/
         return array();
 
     }

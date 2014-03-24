@@ -39,7 +39,6 @@ class NovaPontoComClient implements AbstractIntegrationEngineClient{
         $this->document = self::INTEGRATION_DOCUMENT;
         $this->partnerId = self::PARTNER_ID;
 
-        var_dump($patnerId);
         if ($patnerId == 10) {
             $this->idCampaign = 1584;
             $this->wsdl = self::PONTO_FRIO_WSDL;

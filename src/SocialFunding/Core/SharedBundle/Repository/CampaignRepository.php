@@ -2,6 +2,7 @@
 
 namespace SocialFunding\Core\SharedBundle\Repository;
 
+use SocialFunding\Core\SharedBundle\Entity\Campaign;
 use Doctrine\ORM\EntityRepository;
 
 class CampaignRepository extends EntityRepository{
@@ -80,6 +81,25 @@ class CampaignRepository extends EntityRepository{
             ->createQuery(
                 'SELECT c FROM SharedBundle:Campaign c WHERE c.isActive = 1 AND c.isApproved = 0'
             )
+            ->getResult();
+    }
+
+    public function findAllByNameLike($name)
+    {
+        $minimunDate = new \DateTime('now');
+        $formatedDate = $minimunDate->format('Y-m-d H:i:s');
+        return $this->getEntityManager()
+            ->createQueryBuilder()
+            ->select('c')
+            ->from('SocialFunding\Core\SharedBundle\Entity\Campaign', 'c')
+            ->leftJoin('c.ong', 'o')
+            ->where('c.finalDate > :finalDate')
+            ->andWhere('o.nomeFantasia LIKE \'%'.$name.'%\' ')
+            ->andWhere('c.isApproved = 1')
+            ->andWhere('c.isActive = 1')
+            ->andWhere('c.isActive = 1')
+            ->setParameters(array('finalDate' => $formatedDate))
+            ->getQuery()
             ->getResult();
     }
 

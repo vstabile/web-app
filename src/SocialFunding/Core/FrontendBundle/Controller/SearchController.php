@@ -5,6 +5,7 @@ namespace SocialFunding\Core\FrontendBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class SearchController extends Controller
@@ -21,6 +22,22 @@ class SearchController extends Controller
         $recommendedCampaigns = $repoCampaign->findAllRecommendedCampaigns();
         return array(
             'recommendedCampaigns' => $recommendedCampaigns
+        );
+    }
+
+    /**
+     * @Route("/buscar", name="search_search")
+     * @Template()
+     */
+    public function searchAction(Request $request)
+    {
+
+        $searchTerm = trim($request->get('q'));
+        $em = $this->get('doctrine')->getManager();
+        $repoCampaign = $em->getRepository('SharedBundle:Campaign');
+        $resultCampaigns = $repoCampaign->findAllByNameLike($searchTerm);
+        return array(
+            'recommendedCampaigns' => $resultCampaigns
         );
     }
 
@@ -130,6 +147,24 @@ class SearchController extends Controller
             'totalPurchased' => $totalPurchased,
             'totalPercent' => $totalPercent,
         );
+    }
+
+    /**
+     * @Route("/buscar-cep", name="search_search_cep")
+     */
+    public function searchCepAction(Request $request)
+    {
+        $resultado = @file_get_contents('http://republicavirtual.com.br/web_cep.php?cep='.urlencode($request->get('zipCode')).'&formato=json');
+        if(!$resultado){
+            $resultado = array(
+                'resultado' => 0,
+                'resultado_txt' => 'Erro ao buscar CEP'
+            );
+
+            $resultado = json_encode($resultado);
+        }
+
+        return new JsonResponse($resultado);
     }
 
 }

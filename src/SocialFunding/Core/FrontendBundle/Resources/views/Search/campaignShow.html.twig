@@ -1,5 +1,7 @@
 {% extends 'FrontendBundle::layout.html.twig' %}
 
+{% block title %}Doe para {{ campaign.ong.nomeFantasia }}{% endblock %}
+
 {% block body %}
 	<main>
 		<div class="wrapper">
@@ -171,7 +173,9 @@
 				</div><!--donor-->
 			</section><!--tab-donors-->
 			</div><!--about-->
-		</div><!--wrapper-->	
+            <div class="clearAll"></div>
+		</div><!--wrapper-->
+        <div class="clearAll"></div>
 	</main>
 
 {% endblock %}

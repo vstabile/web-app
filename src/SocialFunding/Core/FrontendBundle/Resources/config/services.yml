@@ -4,3 +4,8 @@ services:
         arguments: [%fos_user.model.user.class%]
         tags:
             - { name: form.type, alias: socialfunding_ong_registration }
+
+    frontend.twig.soncialfunding_extension:
+        class: SocialFunding\Core\FrontendBundle\Twig\FrontendExtension
+        tags:
+            - { name: twig.extension }

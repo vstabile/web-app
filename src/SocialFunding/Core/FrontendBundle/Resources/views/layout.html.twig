@@ -2,7 +2,7 @@
 <html lang="pt">
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}Doação para ONG - Social Funding{% endblock %}</title>
 
         <link rel="stylesheet" type="text/css" href="{{ asset('bundles/frontend/css/style.css') }}">
         {% block stylesheets %}{% endblock %}
@@ -21,24 +21,20 @@
             }(document, 'script', 'facebook-jssdk'));</script>
         {% block header %}
             <header>
-                {% for flashMessage in app.session.flashbag.get('notice') %}
-                    <div class="flash-message">
-                        <em>Notice</em>: {{ flashMessage }}
-                    </div>
-                {% endfor %}
                 <div class="header-wrapper">
                     <div class="logo" itemscope="" itemtype="http://schema.org/Organization">
+                        <h1 style="text-indent: -9999em">Social Funding</h1>
                         <a href="{{ path('search_index') }}" title="Social Funding" itemprop=url><img src="{{ asset('bundles/frontend/images/logo-social-funding.png') }}" alt="Social Funding" itemprop="logo" /></a>
                     </div><!--logo-->
                     <nav class="main-menu">
                         <ul>
                             <li><a href="{{ path('search_about_us') }}">quem somos</a></li>
-                            <li><a href="{{ path('fos_user_registration_register') }}" class="menu-border">cadastrar ong</a></li>
+                            <li><a href="{{ path('fos_user_registration_register') }}" class="menu-border">cadastrar ong<h2 style="text-indent: -9999em">Cadastrar ONG</h2></a></li>
                         </ul>
                     </nav><!--main-menu-->
-                    <form action="" class="search">
-                        <input type="submit" name="search" class="search-send" value="">
-                        <input type="text" class="field" placeholder="Pesquisar ONG">
+                    <form action="{{ path('search_search') }}" method="get" class="search">
+                        <input type="submit" class="search-send" value="">
+                        <input type="text" name="q" class="field" placeholder="Pesquisar ONG">
                     </form>
                     <nav class="main-menu">
                         <ul>
@@ -47,12 +43,22 @@
                         </ul>
                     </nav><!--main-menu-->
                     <div class="social-icons">
-                        <a href="#" title="Curta nossa fanpage no Facebook"><img src="{{ asset('bundles/frontend/images/facebook.png') }}" alt="Facebook"/></a>
-                        <a href="#" title="Siga-nos no Twitter"><img src="{{ asset('bundles/frontend/images/twitter.png') }}" alt="Twitter"/></a>
-                        <a href="#" title="Siga-nos no Instagram"><img src="{{ asset('bundles/frontend/images/instagram.png') }}" alt="Instagram"/></a>
+                        <a href="http://facebook.com/socialfundingbr" target="_blank" title="Curta nossa fanpage no Facebook"><img src="{{ asset('bundles/frontend/images/facebook.png') }}" alt="Facebook"/></a>
+                        <a href="http://twitter.com/socialfundingbr" target="_blank" title="Siga-nos no Twitter"><img src="{{ asset('bundles/frontend/images/twitter.png') }}" alt="Twitter"/></a>
+                        <a href="http://instagram.com/socialfunding" target="_blank" title="Siga-nos no Instagram"><img src="{{ asset('bundles/frontend/images/instagram.png') }}" alt="Instagram"/></a>
                     </div><!--social-icons-->
                 </div><!--header-wrapper-->
+                <div class="clearAll"></div>
+                {% for flashMessage in app.session.flashbag.get('notice') %}
+                    <div class="flash-message">
+                        <p>
+                            {{ flashMessage|raw }}
+                        </p>
+                    </div>
+                {% endfor %}
+                <div class="clearAll"></div>
             </header>
+            <div class="clearAll"></div>
         {% endblock %}
 
         {% block body %}{% endblock %}
@@ -69,29 +75,42 @@
                 </nav><!--footer-menu-->
                 <div class="news-social">
                     <div class="social-icons">
-                        <a href="http://facebook.com/socialfundingbr" title="Curta nossa fanpage no Facebook"><img src="{{ asset('bundles/frontend/images/facebook.png') }}" alt="Facebook"/></a>
-                        <a href="http://twitter.com/socialfundingbr" title="Siga-nos no Twitter"><img src="{{ asset('bundles/frontend/images/twitter.png') }}" alt="Twitter"/></a>
-                        <a href="http://instagram.com/socialfunding" title="Siga-nos no Instagram"><img src="{{ asset('bundles/frontend/images/instagram.png') }}" alt="Instagram"/></a>
+                        <a href="http://facebook.com/socialfundingbr" target="_blank" title="Curta nossa fanpage no Facebook"><img src="{{ asset('bundles/frontend/images/facebook.png') }}" alt="Facebook"/></a>
+                        <a href="http://twitter.com/socialfundingbr" target="_blank" title="Siga-nos no Twitter"><img src="{{ asset('bundles/frontend/images/twitter.png') }}" alt="Twitter"/></a>
+                        <a href="http://instagram.com/socialfunding" target="_blank" title="Siga-nos no Instagram"><img src="{{ asset('bundles/frontend/images/instagram.png') }}" alt="Instagram"/></a>
                     </div><!--social-icons-->
                     <p>Assine nossa news</p>
 
-                    <form action="" class="search">
-                        <input type="text" class="field" placeholder="Digite seu email aqui">
-                        <input type="submit" name="search" class="btn" value="">
+                    <form action="{{ path('newsletter_register') }}" class="search" method="POST">
+                        <input type="text" name="email" class="field" placeholder="Digite seu email aqui">
+                        <input type="submit" class="btn" value="">
                     </form>
 
 
                 </div><!--news-social-->
                 <div class="text-footer">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui, repellendus, modi, consectetur totam magni cum magnam eligendi eius ab a natus hic nam error itaque quae consequatur sunt reiciendis numquam suscipit et. Tempora, obcaecati, amet iusto nobis natus ullam beatae?</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum, ullam, quae, sequi quam soluta repudiandae molestiae non deserunt recusandae pariatur rerum odio dicta dignissimos explicabo error nobis eligendi maxime autem eveniet consequatur molestias distinctio nulla illo amet odit repellat sed qui commodi sunt obcaecati facere incidunt dolor iste. Magni, corporis voluptas fuga possimus voluptatibus laudantium dolor quaerat illo iusto delectus doloremque quas perspiciatis provident minus assumenda inventore iste cumque earum rerum saepe pariatur suscipit odit. Dolores, ab, veritatis ea nisi blanditiis dolor ipsum repudiandae ratione dolore harum impedit quam voluptate provident architecto sequi cum error voluptatem nihil eum quisquam doloribus reiciendis mollitia quo reprehenderit nulla eos voluptas sed veniam inventore accusantium rerum rem iusto aliquam! Nemo, quas labore dolore voluptatum esse et veniam porro autem reprehenderit beatae molestiae quis repellendus! Enim, odio, in, et, ut alias est ipsa numquam praesentium sed autem ea neque provident cum unde rerum nam molestias! Placeat, voluptas, cum, aliquam sequi necessitatibus ex in quidem aut vero quibusdam quas modi ipsum. Iste, distinctio ducimus animi quasi reprehenderit voluptas atque sint! Quis, eum, enim corrupti ipsa harum deserunt hic doloremque. Error, beatae, laudantium, quidem earum sunt illum ea cupiditate recusandae dicta assumenda eaque corrupti dolores est nam.</p>
+                    <p>Bem vindo a SocialFunding.com.br, a única plataforma de crowdfunding que busca contribuir com a responsabilidade social do nosso planeta! De forma colaborativa, trabalhamos com uma plataforma que integra diferentes projetos sociais, ONGs, instituições sociais, fundações e empresas do terceiro setor e que busca voluntários para as doações de diversos produtos necessários para manter as ONGs afiliadas.</p>
+                    <p>Somos parceiros de grandes empresas do mercado, como o Extra.com, PontoFrio.com e as Casas Bahia e dessa forma, você só seleciona o produto que quer doar e pronto! Todo o trabalho de entrega é feito por nós. Ajude e colabore! Dessa forma você ajuda a mudar o mundo com a gente!</p>
                 </div>
                 <div class="copy">
-                    <p>Copyright 2013 socialfunding.com.br - Todos os direitos reservados</p>
+                    <p>Copyright 2014 socialfunding.com.br - Todos os direitos reservados</p>
                 </div><!--copy-->
             </div><!--footer-wrapper-->
         </footer><!--footer-->
         <script src="{{ asset('bundles/frontend/js/jcarousel.js') }}"></script>
+        <script src="{{ asset('bundles/frontend/js/jquery.maskedinput.min.js') }}"></script>
+        {% block googleAnalytics %}
+            <script>
+                (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+                ga('create', 'UA-47954015-1', 'socialfunding.com.br');
+                ga('send', 'pageview');
+
+            </script>
+        {% endblock %}
         <script>
             $(document).ready(function(){
                 $('.carousel-reviewers')

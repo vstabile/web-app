@@ -9,7 +9,7 @@ use SocialFunding\Core\SharedBundle\Entity\OrderStatus;
 /**
  * Project
  *
- * @ORM\Table()
+ * @ORM\Table(name="orders")
  * @ORM\Entity()
  */
 class Order
@@ -41,8 +41,6 @@ class Order
     private $orderProducts;
 
     /**
-     * Unidirectional - Many users have marked many comments as read
-     *
      * @ORM\ManyToMany(targetEntity="OrderStatus")
      * @ORM\JoinTable(name="order_status_list",
      *   joinColumns={@ORM\JoinColumn(name="order_id", referencedColumnName="id")},
@@ -69,7 +67,7 @@ class Order
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="created_at", type="datetime")
+     * @ORM\Column(name="createdAt", type="datetime")
      */
     private $createdAt;
 
@@ -89,6 +87,7 @@ class Order
     public function __construct()
     {
         $this->orderProducts = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->orderStatus = new \Doctrine\Common\Collections\ArrayCollection();
         $this->createdAt = new \DateTime('now');
     }
 
@@ -98,7 +97,7 @@ class Order
      * @param \SocialFunding\Core\SharedBundle\Entity\CampaignProducts $products
      * @return Campaign
      */
-    public function addProduct(\SocialFunding\Core\SharedBundle\Entity\OrderProduct $orderProduct)
+    public function addOrderProduct(\SocialFunding\Core\SharedBundle\Entity\OrderProduct $orderProduct)
     {
         $this->orderProducts[] = $orderProduct;
 
@@ -110,9 +109,32 @@ class Order
      *
      * @param \SocialFunding\Core\SharedBundle\Entity\CampaignProducts $products
      */
-    public function removeProduct(\SocialFunding\Core\SharedBundle\Entity\OrderProduct $orderProduct)
+    public function removeOrderProduct(\SocialFunding\Core\SharedBundle\Entity\OrderProduct $orderProduct)
     {
         $this->orderProducts->removeElement($orderProduct);
+    }
+
+    /**
+     * Add OrderStatus
+     *
+     * @param \SocialFunding\Core\SharedBundle\Entity\CampaignProducts $products
+     * @return Campaign
+     */
+    public function addOrderStatus(\SocialFunding\Core\SharedBundle\Entity\OrderStatus $orderStatus)
+    {
+        $this->orderStatus[] = $orderStatus;
+
+        return $this;
+    }
+
+    /**
+     * Remove OrderStatus
+     *
+     * @param \SocialFunding\Core\SharedBundle\Entity\CampaignProducts $products
+     */
+    public function removeOrderStatus(\SocialFunding\Core\SharedBundle\Entity\OrderStatus $orderStatus)
+    {
+        $this->orderStatus->removeElement($orderStatus);
     }
 
     /**

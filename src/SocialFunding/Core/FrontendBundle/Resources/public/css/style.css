@@ -180,6 +180,7 @@ header{
 	height: 28px;
 	padding-left: 5px;
 	font-weight: 100;
+    font-size: 16px;
 }
 /*SOCIAL-ICONS*/
 .social-icons{
@@ -276,7 +277,7 @@ header{
 }
 .post-door{
 	width: 220px;
-	height: 400px;
+	height: 460px;
 	-webkit-box-shadow:1px 1px 5px rgba(50, 50, 50, 0.5);
 	-moz-box-shadow:1px 1px 5px rgba(50, 50, 50, 0.5);
 	box-shadow:1px 1px 5px rgba(50, 50, 50, 0.5);
@@ -318,10 +319,11 @@ header{
 .post-text{
 	height:140px;
 	float: left;
+    margin-bottom: 10px;
 }
 .meta{
 	width: 200px;
-	height: 60px;
+	height: 110px;
 	background: #f6f6f6;
 	float: left;
 	padding: 10px;
@@ -330,6 +332,9 @@ header{
 .content-wrapper{
 	width: 1000px;
 	margin: 0 auto;
+}
+.content-margin-top{
+    margin-top: 10px !important;
 }
 .social{
 	width:250px;
@@ -380,7 +385,7 @@ header{
 
 .sidebar-donors{
 	width:270px;
-	height: 800px;
+	height: auto;
 	float: right;
 }
 .donate{
@@ -728,6 +733,24 @@ header{
 	float: right;
 	cursor: pointer;
 }
+
+.btn-register{
+    background:#60e27b;
+    color:#fff;
+    font-size:31px;
+    font-weight: 300;
+    border:0;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    width: 345px;
+    height: 80px;
+    margin: 40px auto 20px auto;
+    display: block;
+    padding-left: 60px;
+    cursor: pointer;
+}
+
 .dashboard .btn-top:hover{
 	background:#00a77b url(../images/plus-s.png) 40px no-repeat;
 	outline: none;
@@ -2113,6 +2136,15 @@ footer{
     margin-bottom: 10px;
 }
 
+.main-cadastro-ong-input textarea {
+    border: 1px solid #ccc;
+    padding: 2px 5px;
+    width: 400px;
+    height: 200px;
+    background: #fff;
+    margin-bottom: 10px;
+}
+
 /* About Us */
 
 .about-social-funding-logo {
@@ -2247,4 +2279,14 @@ footer{
 .about-us-paragraph {
     margin: 25px 0px;
     font-weight: 100;
+}
+
+.flash-message {
+    float: left;
+    background: #fcee88;
+    -webkit-box-shadow: 1px 1px 5px rgba(50, 50, 50, 0.5);
+    -moz-box-shadow: 1px 1px 5px rgba(50, 50, 50, 0.5);
+    box-shadow: 1px 1px 5px rgba(50, 50, 50, 0.5);
+    padding: 8px 30px;
+    width: 90%;
 }

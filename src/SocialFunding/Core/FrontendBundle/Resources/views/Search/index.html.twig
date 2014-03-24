@@ -3,7 +3,7 @@
 {% block body %}
     <main>
         <div class="carousel-hero">
-            <ul>
+            <ul style="left: -2335px">
                 <li>
                     <section class="hero">
                         <div class="banner-wrapper">
@@ -40,15 +40,28 @@
                         <p>{{ recCampaign.ong.description }}</p>
                     </a>
                     <span>{{ recCampaign.ong.city }}, {{ recCampaign.ong.state }}</span>
-                    {#<div class="meta">#}
-                        {#texto#}
-                    {#</div>#}
+                    <div class="meta">
+                        {%  set totalPurchased = 0 %}
+                        {%  set totalNested = 0 %}
+                        {% for campaignProduct in recCampaign.products %}
+                            {% set totalPurchased = totalPurchased + campaignProduct.quantityPurchased %}
+                            {% set totalNested = totalNested + campaignProduct.quantity %}
+                        {% endfor %}
+                        {% set totalPercent = (totalPurchased*100)/totalNested %}
+                        <p class="percent-meta">{{ totalPercent|floor }}% da meta</p>
+                        <p class="products">{{ totalPurchased }} Produtos Arrecadados</p>
+                        {#<p class="days"><span>{{ remainingDays }}</span> Dias Restantes</p>#}
+                        {#<input type="hidden" value="{{ campaign.id }}" id="campaignId"/>#}
+                        {#$totalPercent = floor(($totalPurchased*100)/$totalNested);#}
+                    </div>
                 </article><!--post-door-->
             {% endfor %}
+            <div class="clearAll"></div>
         </section><!--posts-home-->
-        <div class="content-wrapper">
+        <div class="clearAll"></div>
+        <div class="content-wrapper content-margin-top">
             <aside class="social">
-                <div class="fb-like-box" data-href="https://www.facebook.com/radiorockoficial" data-width="240" data-height="250" data-colorscheme="light" data-show-faces="true" data-header="false" data-stream="false" data-show-border="false"></div>
+                <div class="fb-like-box" data-href="https://www.facebook.com/socialfundingbr" data-width="240" data-height="250" data-colorscheme="light" data-show-faces="true" data-header="false" data-stream="false" data-show-border="false"></div>
                 <div class="side-blog">
                     <h5>Blog</h5>
                     <article class="blog-post">
@@ -76,16 +89,9 @@
             <section class="partner">
                 <div class="partner-wrapper">
                     <h4>Parceiros</h4>
-                    <a href="#" title="Extra"><img src="{{ asset('bundles/frontend/images/extra.jpg') }}" alt="Extra"/></a>
-                    <a href="#" title="Extra"><img src="{{ asset('bundles/frontend/images/extra.jpg') }}" alt="Extra"/></a>
-                    <a href="#" title="Extra"><img src="{{ asset('bundles/frontend/images/extra.jpg') }}" alt="Extra"/></a>
-                    <a href="#" title="Extra"><img src="{{ asset('bundles/frontend/images/extra.jpg') }}" alt="Extra"/></a>
-                    <a href="#" title="Extra"><img src="{{ asset('bundles/frontend/images/extra.jpg') }}" alt="Extra"/></a>
-                    <a href="#" title="Extra"><img src="{{ asset('bundles/frontend/images/extra.jpg') }}" alt="Extra"/></a>
-                    <a href="#" title="Extra"><img src="{{ asset('bundles/frontend/images/extra.jpg') }}" alt="Extra"/></a>
-                    <a href="#" title="Extra"><img src="{{ asset('bundles/frontend/images/extra.jpg') }}" alt="Extra"/></a>
-                    <a href="#" title="Extra"><img src="{{ asset('bundles/frontend/images/extra.jpg') }}" alt="Extra"/></a>
-                    <a href="#" title="Extra"><img src="{{ asset('bundles/frontend/images/extra.jpg') }}" alt="Extra"/></a>
+                    <a href="http://www.pontofrio.com.br" target="_blank" title="Ponto Frio"><img src="{{ asset('bundles/frontend/images/ponto-frio-logo.jpg') }}" alt="Ponto Frio"/></a>
+                    <a href="http://www.casasbahia.com.br" target="_blank" title="Casas Bahia"><img src="{{ asset('bundles/frontend/images/casas-bahia-logo.png') }}" alt="Casas Bahia"/></a>
+                    <a href="http://www.extra.com.br" target="_blank" title="Extra"><img src="{{ asset('bundles/frontend/images/extra.jpg') }}" alt="Extra"/></a>
                 </div><!--partner-wrapper-->
             </section><!--parter-->
             <section class="opinion">
@@ -101,7 +107,7 @@
                                 <p>“A Liga Solidária, é uma organização social sem fins lucrativos que desenvolve programas socioeducativos e de cidadania que beneficiam mais de 3.200 pessoas. A Liga Solidária, é uma organização social sem fins lucrativos que desenvolve programas socioeducativos e de cidadania que beneficiam mais de 3.200 pessoas.”</p>
                             </article><!--reviewer-->
                         </li>
-                        <li>F
+                        <li>
                             <article class="reviewer">
                                 <a href=""><img src="{{ asset('bundles/frontend/images/angelo.png') }}" alt="Angelo Gianotto"/></a>
                                 <h5>2</h5>

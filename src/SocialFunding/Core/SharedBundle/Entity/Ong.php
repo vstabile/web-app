@@ -64,7 +64,7 @@ class Ong extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(name="cep", type="integer")
+     * @ORM\Column(name="cep", type="string")
      * Assert\NotBlank(message="Por favor digite o CEP da ONG.", groups={"Registration", "Profile"})
      */
     private $cep;

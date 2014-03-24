@@ -20,60 +20,16 @@ class CostumerController extends Controller{
     public function indexAction(Request $request)
     {
         $em = $this->get('doctrine')->getManager();
+        $repoCostumer = $em->getRepository('SharedBundle:Costumer');
         $repoCampaign = $em->getRepository('SharedBundle:Campaign');
-        $repoOng = $em->getRepository('SharedBundle:Ong');
 
+        $allCostumers = $repoCostumer->findAll();
         $allPendentCampaigns = $repoCampaign->findAllPendentCampaigns();
-
-        $allOngs = $repoOng->findAll();
-
-//        $form = $this->createForm(new OngInformationType(), $ong);
-//
-//        $form->handleRequest($request);
-//
-//        if ($form->isValid()) {
-//            $em = $this->getDoctrine()->getManager();
-//
-//            $em->persist($ong);
-//            $em->flush();
-//
-//            $this->get('session')->getFlashBag()->add(
-//                'notice',
-//                'Alterações realizadas com sucesso!'
-//            );
-//
-//            return $this->redirect($this->generateUrl('ong_edit_perfil'));
-//        }
 
         return array(
             'allPendentCampaigns' => count($allPendentCampaigns),
-            'allOngs' => $allOngs,
+            'allCostumers' => $allCostumers,
         );
-    }
-
-    /**
-     * @Route("/ong/campanhas/", name="backend_ong_list_campaigns")
-     * @Template()
-     */
-    public function listCampaignsAction(Request $request)
-    {
-        $filters = $request->query->get('filter');
-        $em = $this->get('doctrine')->getManager();
-        $repoCampaign = $em->getRepository('SharedBundle:Campaign');
-        $allPendentCampaigns = $repoCampaign->findAllPendentCampaigns();
-
-        $campaignList = array();
-        if ($filters == 'new_campaign') {
-            $campaignList = $repoCampaign->findAllPendentCampaigns();
-        } else {
-            $campaignList = $repoCampaign->findAll();
-        }
-
-        return array(
-            'campaignList' => $campaignList,
-            'allPendentCampaigns' => count($allPendentCampaigns),
-        );
-
     }
 
 }

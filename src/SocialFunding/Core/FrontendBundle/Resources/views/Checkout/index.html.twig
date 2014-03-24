@@ -39,9 +39,9 @@
                     {% set totalValue = productSelected.price*productSelected.quantity %}
                     <tr>
                         <td>{{ productSelected.name }}</td>
-                        <td>R$ {{ productSelected.price }}</td>
+                        <td>R$ {{ productSelected.price|price(2,',','.') }}</td>
                         <td>{{ productSelected.quantity }}</td>
-                        <td>R$ {{ totalValue }}</td>
+                        <td>R$ {{ totalValue|price(2,',','.') }}</td>
                     </tr>
                 {% endfor %}
             </table>
@@ -56,32 +56,32 @@
                     <ul class="inline-fields">
                         <li>
                             <label for="">Telefone</label>
-                            <input type="text" name="phone" class="field-half">
+                            <input type="text" id="phone" name="phone" class="field-half">
                         </li>
                         <li>
                             <label for="">Celular</label>
-                            <input type="text"  name="celphone" class="field-half">
+                            <input type="text" id="celphone" name="celphone" class="field-half">
                         </li>
                     </ul>
                     <ul class="inline-field-link">
                         <li>
                             <label for="">CEP</label>
-                            <input type="text" name="zipcode" class="field-half">
+                            <input type="text" name="zipcode" id="zipcode" class="field-half">
                         </li>
                         <li>
-                            <a href="http://www.buscacep.correios.com.br/" title="Busque o seu CEP">Não sabe seu CEP</a>
+                            <a target="_blank" href="http://www.buscacep.correios.com.br/" title="Busque o seu CEP">Não sabe seu CEP</a>
                         </li>
                     </ul>
                     <label for="">Endereço</label>
-                    <input type="text" class="field" name="address" placeholder="rua, número">
+                    <input type="text" class="field" id="address" name="address" placeholder="rua, número">
                     <label for="">Complemento</label>
                     <input type="text" class="field" name="complement" placeholder="apto., bloco, casa">
                     <label for="neighborhood">Bairro</label>
-                    <input type="text" class="field" id="neighborhood" name="neighborhood">
+                    <input type="text" class="field" id="neighborhood" id="neighborhood" name="neighborhood">
                     <ul class="inline-fields">
                         <li>
                             <label for="city">Cidade</label>
-                            <input type="text" name="city" class="field-half">
+                            <input type="text" name="city" id="city" class="field-half">
                         </li>
                         <li>
                             <label for="state">Estado</label>
@@ -193,7 +193,7 @@
                     </tr>
                     <tr>
                         <td>Valor total dos produtos</td>
-                        <td>R$: {{ cart.valueTotalProducts }}</td>
+                        <td>R$: {{ cart.valueTotalProducts|price(2,',','.') }}</td>
                     </tr>
                     {#<tr>#}
                         {#<td>Despesas com frete</td>#}
@@ -216,4 +216,42 @@
         </div>
     </main>
 {% endblock %}
+{% block javascripts %}
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("#zipcode").mask("99999-999");
+            $("#phone").mask("(99)9999-9999");
+            $("#celphone").mask("(99)99999-9999");
 
+            $("#zipcode").blur(function(){
+
+                var zipCode = $(this).val();
+
+                var request = $.ajax({
+                    url: "{{ path('search_search_cep') }}",
+                    type: "GET",
+                    data: {
+                        'zipCode' : zipCode
+                    },
+                    dataType: "json"
+                });
+
+                request.done(function(data) {
+                    var result = JSON.parse(data);
+                    if (result.resultado == 0) {
+                        alert( "Não foi possível consultar o CEP informado.");
+                    } else {
+                        $("#address").val(result.tipo_logradouro + ' ' + result.logradouro);
+                        $("#neighborhood").val(result.bairro);
+                        $("#city").val(result.cidade);
+                        $("#state").val(result.uf);
+                    }
+                });
+
+                request.fail(function( jqXHR, textStatus ) {
+                    alert( "Não foi possível consultar o CEP informado.");
+                })
+            });
+        });
+    </script>
+{% endblock %}

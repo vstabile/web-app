@@ -6,20 +6,18 @@
         <table class="display datatable">
             <thead>
                 <tr>
-                    <th>ONG</th>
-                    <th>Total de Campanhas</th>
-                    <th>Nome do Resposável</th>
+                    <th>Nome</th>
+                    <th>Total de Doações</th>
                     <th>E-mail</th>
                     <th>Ações</th>
                 </tr>
             </thead>
             <tbody>
-                {% for ong in allOngs %}
+                {% for costumer in allCostumers %}
                 <tr class="gradeX">
-                    <td>{{ ong.nomeFantasia }}</td>
-                    <td><a href="#">{{ ong.campaigns|length }} Campanhas</a></td>
-                    <td>{{ ong.nomeResponsavel }}</td>
-                    <td>{{ ong.email }}</td>
+                    <td>{{ costumer.firstName }} {{ costumer.lastName }}</td>
+                    <td><a href="#">{{ costumer.orders|length }} Doações</a></td>
+                    <td>{{ costumer.email }}</td>
                     <td>Editar</td>
                 </tr>
                 {% endfor %}

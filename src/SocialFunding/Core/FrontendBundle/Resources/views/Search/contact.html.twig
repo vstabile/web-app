@@ -7,25 +7,34 @@
             <div class="about-social-funding-logo"></div>
             <h2 class="about-us-title">Entre em contato e ajude-nos a mudar o mundo!</h2>
 
-            <form action="{{ path('search_contact') }}" method="post">
-                <section class="box">
-                    <p>
-                        <label for="">Nome</label>
-                        <input type="text" class="field" name="name">
-                    </p>
-                    <p>
-                        <label for="">E-mail</label>
-                        <input type="text" class="field" name="email">
-                    </p>
-                    <p>
-                        <label for="">Mensagem</label>
-                        <textarea class="field" name="message"></textarea>
-                    </p>
-                    <p>
-                        <button type="submit" class="btn-submit"><span class="icon-heart"></span>Enviar Mensagem</button>
-                    </p>
-                </section>
-            </form>
+            <div class="main-cadastro-ong" style="background: #f5f5f5; width: 630px; margin: 10px auto; padding: 20px 10px;">
+                <form action="{{ path('search_contact') }}" method="post">
+                    <section class="box">
+                        <p>
+                            <label for="">Nome</label>
+                            <div class="main-cadastro-ong-input" style="float: left">
+                                <input type="text" class="field" name="name">
+                            </div>
+                        </p>
+                        <p>
+                            <label for="">E-mail</label>
+                            <div class="main-cadastro-ong-input" style="float: left">
+                                <input type="text" class="field" name="email">
+                            </div>
+                        </p>
+                        <p>
+                            <label for="">Mensagem</label>
+                            <div class="main-cadastro-ong-input" style="float: left">
+                                <textarea class="field" name="message"></textarea>
+                            </div>
+                        </p>
+                        <div>
+                            <input type="submit" class="btn-register" value="Enviar Mensagem" />
+                        </div>
+                    </section>
+                </form>
+                <div class="clearAll"></div>
+            </div>
         </div><!--content-wrapper-->
     </main>
 {% endblock %}
