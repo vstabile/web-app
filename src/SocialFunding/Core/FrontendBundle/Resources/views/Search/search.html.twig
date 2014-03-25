@@ -13,9 +13,18 @@
                     </a>
                     <span>{{ recCampaign.ong.city }}, {{ recCampaign.ong.state }}</span>
                     <div class="meta">
+                        {%  set totalPurchased = 0 %}
+                        {%  set totalNested = 0 %}
                         {% for campaignProduct in recCampaign.products %}
-                            {{ campaignProduct.quantityPurchased }}
+                            {% set totalPurchased = totalPurchased + campaignProduct.quantityPurchased %}
+                            {% set totalNested = totalNested + campaignProduct.quantity %}
                         {% endfor %}
+                        {% set totalPercent = (totalPurchased*100)/totalNested %}
+                        <p class="percent-meta">{{ totalPercent|floor }}% da meta</p>
+                        <p class="products">{{ totalPurchased }} Produtos Arrecadados</p>
+                        {#<p class="days"><span>{{ remainingDays }}</span> Dias Restantes</p>#}
+                        {#<input type="hidden" value="{{ campaign.id }}" id="campaignId"/>#}
+                        {#$totalPercent = floor(($totalPurchased*100)/$totalNested);#}
                     </div>
                 </article><!--post-door-->
             {% endfor %}
