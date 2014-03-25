@@ -165,7 +165,7 @@ class OngController extends Controller{
             $campaign->addProduct($campaignProduct);
         }
 
-        $campaign->setFinalDate(new \DateTime('+20 days'));
+        $campaign->setFinalDate(new \DateTime('+15 days'));
         $campaign->setInitialDate(new \DateTime('now'));
         $campaign->setIsActive(1);
         $campaign->setFirstDescription($firstDesc);
@@ -173,15 +173,12 @@ class OngController extends Controller{
         $campaign->setIsApproved(0);
         $campaign->setOng($ong);
 
-        var_dump($request->files->get('coverPhoto'));
         foreach($request->files->get('coverPhoto') as $coverId => $file) {
             $campaign->upload($file, $coverId+1);
         }
 
-
         $em->persist($campaign);
         $em->flush();
-
         $session->remove('product_list');
 
         return $this->redirect($this->generateUrl('ong_list_campaign'));
@@ -262,14 +259,10 @@ class OngController extends Controller{
         }
 
         $categoriesPontoFrio = $repoCategory->findAllMainCategory(10);
-        $categoriesExtra = $repoCategory->findAllMainCategory(11);
-        $categoriesCasasBahia = $repoCategory->findAllMainCategory(12);
 
         return array(
             'ong' => $ong,
             'categoryListPontoFrio' => $categoriesPontoFrio,
-            'categoryListExtra' => $categoriesExtra,
-            'categoryListCasasBahia' => $categoriesCasasBahia,
             'productList' => $productList,
             'selectedProductsList' => $selectedProductsList
         );

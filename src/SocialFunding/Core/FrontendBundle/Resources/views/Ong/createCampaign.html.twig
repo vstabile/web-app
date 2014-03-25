@@ -12,13 +12,7 @@
                                 <a href="#" class="trash removeItem" id="{{ productSelected.id }}"><img src="{{ asset('bundles/frontend/images/trash.png') }}" alt="Excluir" title="Excluir Produto" ></a>
                                 <div class="product-area">
                                     <a href="#">
-                                        {% if productSelected.IntegrationEnginePartner.id == 10 %}
-                                            <img src="http://imagens.pontofrio.com.br/Control/ArquivoExibir.aspx?IdArquivo={{ productSelected.imageSmall }}" alt="">
-                                        {% elseif productSelected.IntegrationEnginePartner.id == 11 %}
-                                            <img src="http://imagens.extra.com.br/Control/ArquivoExibir.aspx?IdArquivo={{ productSelected.imageSmall }}" alt="">
-                                        {% else %}
-                                            <img src="http://imagem.casasbahia.com.br/Control/ArquivoExibir.aspx?IdArquivo={{ productSelected.imageSmall }}" alt="">
-                                        {% endif %}
+                                        <img src="http://imagens.pontofrio.com.br/Control/ArquivoExibir.aspx?IdArquivo={{ productSelected.imageSmall }}" alt="">
                                         <span>{{ productSelected.name }}</span>
                                     </a>
                                 </div><!--product-area-->
@@ -67,30 +61,6 @@
                             </ul>
                         </li>
                         {% endif %}
-                        {% if categoryListExtra is defined %}
-                        <li>
-                            <a href="#">Extra</a>
-                            <ul>
-                                {% for category in categoryListExtra %}
-                                    <li>
-                                        <a href="?partner={{ category.integrationEnginePartner.id }}&category={{ category.categoryId }}">{{ category.name }}</a>
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        </li>
-                        {% endif %}
-                        {% if categoryListCasasBahia is defined %}
-                        <li>
-                            <a href="#">CasasBahia</a>
-                            <ul>
-                                {% for category in categoryListCasasBahia %}
-                                    <li>
-                                        <a href="?partner={{ category.integrationEnginePartner.id }}&category={{ category.categoryId }}">{{ category.name }}</a>
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        </li>
-                        {% endif %}
                     </ul>
                 </aside><!--sidebar-product-->
                 <div class="product-showcase">
@@ -120,19 +90,13 @@
                             {% for key,product in productList %}
                                 <div class="item">
                                     <a href="#">
-                                        {% if product.IntegrationEnginePartner.id == 10 %}
-                                            <img src="http://imagens.pontofrio.com.br/Control/ArquivoExibir.aspx?IdArquivo={{ product.imageAverage }}" alt="">
-                                        {% elseif product.IntegrationEnginePartner.id == 11 %}
-                                            <img src="http://imagens.extra.com.br/Control/ArquivoExibir.aspx?IdArquivo={{ product.imageAverage }}" alt="">
-                                        {% else %}
-                                            <img src="http://imagem.casasbahia.com.br/Control/ArquivoExibir.aspx?IdArquivo={{ product.imageAverage }}" alt="">
-                                        {% endif %}
+                                        <img src="http://imagens.pontofrio.com.br/Control/ArquivoExibir.aspx?IdArquivo={{ product.imageAverage }}" alt="">
                                         <span>{{ product.name }}</span>
                                     </a>
                                     {% if product.priceTo == '' %}
-                                        <p>R$ {{ product.priceFrom }}</p>
+                                        <p>R$ {{ product.priceFrom|price(2,',','.') }}</p>
                                     {% else %}
-                                        <p>R$ {{ product.priceTo }}</p>
+                                        <p>R$ {{ product.priceTo|price(2,',','.') }}</p>
                                     {% endif %}
                                     <button class="product-select" id="{{ product.id }}">Selecionar</button>
                                 </div><!--item-->

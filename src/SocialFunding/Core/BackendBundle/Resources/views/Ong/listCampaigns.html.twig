@@ -18,7 +18,9 @@
             <tbody>
                 {% for campaign in campaignList %}
                 <tr class="gradeX">
-                    <td>{{ campaign.id }}</td>  |date("d/m/Y") }}</td>
+                    <td>{{ campaign.id }}</td>
+                    <td>{{ campaign.ong.nomeFantasia }}</td>
+                    <td>{{ campaign.initialDate|date("d/m/Y") }}</td>
                     <td>{{ campaign.finalDate|date("d/m/Y") }}</td>
                     <td>{% if campaign.isApproved == 0 %} Pendente {% else %} Aprovada {% endif %}</td>
                     <td>{% if campaign.isActive == 0 %} Inativa {% else %} Ativa {% endif %}</td>
