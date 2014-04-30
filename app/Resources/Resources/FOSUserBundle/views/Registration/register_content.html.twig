@@ -1,0 +1,174 @@
+<div class="content-wrapper">
+    <h2 class="about-us-sub-title">CADASTRAR ONG</h2>
+    <form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">
+        {{ form_errors(form) }}
+        {{ form_widget(form._token) }}
+        <div class="main-cadastro-ong" style="background: #f5f5f5; width: 630px; margin: 0 auto; padding: 20px 10px;">
+            <div class="left-block" style="float: left; width: 340px;">
+                <div class="main-cadastro-ong-line">
+                <span class="main-cadastro-ong-label" style="display: block; text-align: left;">
+                    {{ form_label(form.email) }}
+                </span>
+                    <div class="main-cadastro-ong-input" style="float: left">
+                        {{ form_widget(form.email) }}
+                        {{ form_errors(form.email) }}
+                    </div>
+                </div>
+                <div style="clear: both;"></div>
+                <div class="main-cadastro-ong-line">
+                <span class="main-cadastro-ong-label" style="display: block; text-align: left;">
+                    Senha:
+                </span>
+                    <div class="main-cadastro-ong-input" style="float: left">
+                        {{ form_widget(form.plainPassword.first) }}
+                        {{ form_errors(form.plainPassword.first) }}
+                    </div>
+                </div>
+                <div style="clear: both;"></div>
+                <div class="main-cadastro-ong-line">
+                <span class="main-cadastro-ong-label" style="display: block; text-align: left;">
+                    Repita a senha:
+                </span>
+                    <div class="main-cadastro-ong-input" style="float: left">
+                        {{ form_widget(form.plainPassword.second) }}
+                    </div>
+                </div>
+                <div style="clear: both;"></div>
+                <div class="main-cadastro-ong-line">
+                <span class="main-cadastro-ong-label" style="display: block; text-align: left;">
+                    CNPJ:
+                </span>
+                    <div class="main-cadastro-ong-input" style="float: left">
+                        {{ form_widget(form.document) }}
+                        {{ form_errors(form.document) }}
+                    </div>
+                </div>
+                <div style="clear: both;"></div>
+                <div class="main-cadastro-ong-line">
+                <span class="main-cadastro-ong-label" style="display: block; text-align: left;">
+                    {{ form_label(form.razaoSocial) }}:
+                </span>
+                    <div class="main-cadastro-ong-input" style="float: left">
+                        {{ form_widget(form.razaoSocial) }}
+                        {{ form_errors(form.razaoSocial) }}
+                    </div>
+                </div>
+                <div style="clear: both;"></div>
+                <div class="main-cadastro-ong-line">
+                <span class="main-cadastro-ong-label" style="display: block; text-align: left;">
+                    {{ form_label(form.nomeFantasia) }}:
+                </span>
+                    <div class="main-cadastro-ong-input" style="float: left">
+                        {{ form_widget(form.nomeFantasia) }}
+                        {{ form_errors(form.nomeFantasia) }}
+                    </div>
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+            <div class="right-block" style="float: left;">
+                <div class="main-cadastro-ong-line">
+                <span class="main-cadastro-ong-label" style="display: block; text-align: left;">
+                    {{ form_label(form.cep) }}:
+                </span>
+                    <div class="main-cadastro-ong-input" style="float: left">
+                        {{ form_widget(form.cep) }}
+                        {{ form_errors(form.cep) }}
+                    </div>
+                </div>
+                <div style="clear: both;"></div>
+                <div class="main-cadastro-ong-line">
+                <span class="main-cadastro-ong-label" style="display: block; text-align: left;">
+                    Endereço:
+                </span>
+                    <div class="main-cadastro-ong-input" style="float: left">
+                        {{ form_widget(form.address) }}
+                        {{ form_errors(form.address) }}
+                    </div>
+                </div>
+                <div style="clear: both;"></div>
+                <div class="main-cadastro-ong-line">
+                <span class="main-cadastro-ong-label" style="display: block; text-align: left;">
+                    Complemento:
+                </span>
+                    <div class="main-cadastro-ong-input" style="float: left">
+                        {{ form_widget(form.complement) }}
+                        {{ form_errors(form.complement) }}
+                    </div>
+                </div>
+                <div style="clear: both;"></div>
+                <div class="main-cadastro-ong-line">
+                <span class="main-cadastro-ong-label" style="display: block; text-align: left;">
+                    Bairro:
+                </span>
+                    <div class="main-cadastro-ong-input" style="float: left">
+                        {{ form_widget(form.neighborhood) }}
+                        {{ form_errors(form.neighborhood) }}
+                    </div>
+                </div>
+                <div style="clear: both;"></div>
+                <div class="main-cadastro-ong-line">
+                <span class="main-cadastro-ong-label" style="display: block; text-align: left;">
+                    Cidade:
+                </span>
+                    <div class="main-cadastro-ong-input" style="float: left">
+                        {{ form_widget(form.city) }}
+                        {{ form_errors(form.city) }}
+                    </div>
+                </div>
+                <div style="clear: both;"></div>
+                <div class="main-cadastro-ong-line">
+                <span class="main-cadastro-ong-label" style="display: block; text-align: left;">
+                    Estado:
+                </span>
+                    <div class="main-cadastro-ong-input" style="float: left">
+                        {{ form_widget(form.state) }}
+                        {{ form_errors(form.state) }}
+                    </div>
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+            <div style="clear: both;"></div>
+        </div>
+        <div>
+            <input type="submit" class="btn-register" value="Cadastrar ONG" />
+        </div>
+    </form>
+</div><!--content-wrapper-->
+
+{% block javascripts %}
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("#fos_user_registration_form_cep").mask("99999-999");
+
+            $("#fos_user_registration_form_cep").blur(function(){
+
+                var zipCode = $(this).val();
+
+                var request = $.ajax({
+                    url: "{{ path('search_search_cep') }}",
+                    type: "GET",
+                    data: {
+                        'zipCode' : zipCode
+                    },
+                    dataType: "json"
+                });
+
+                request.done(function(data) {
+                    var result = JSON.parse(data);
+                    if (result.resultado == 0) {
+                        alert( "Não foi possível consultar o CEP informado.");
+                    } else {
+                        $("#fos_user_registration_form_address").val(result.tipo_logradouro + ' ' + result.logradouro);
+                        $("#fos_user_registration_form_neighborhood").val(result.bairro);
+                        $("#fos_user_registration_form_city").val(result.cidade);
+                        $("#fos_user_registration_form_state").val(result.uf);
+                    }
+                });
+
+                request.fail(function( jqXHR, textStatus ) {
+                    alert( "Não foi possível consultar o CEP informado.");
+                })
+            });
+        });
+    </script>
+{% endblock %}

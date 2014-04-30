@@ -1,0 +1,122 @@
+{% extends 'FrontendBundle::layout.html.twig' %}
+
+{% block body %}
+    <main>
+        <div class="wrapper">
+            <div class="dashboard" id="tabs">
+			<span class="page-title pull-left">
+				<img style="border-radius:50%;width: 80px;" src="http://graph.facebook.com/{{ user.userName }}/picture" alt="{{ app.security.token.user.firstname }} {{ app.security.token.user.lastname }}">
+				<h1 style="font-size: 20px; left: 10px; font-size: 35px; ">{{ app.security.token.user.firstname }} {{ app.security.token.user.lastname }}</h1>
+			</span>
+
+                <nav class="tab-menu">
+                    <ul>
+                        <li><a href="#tabs-1">ONGs Apoiadas</a></li>
+                        <li><a href="#tabs-2">Informações</a></li>
+                    </ul>
+                </nav><!--tab-menu-->
+
+                <section class="tab-general" id="tabs-1">
+                    <section class="status">
+                        {% for donatedOng in donatedOngs %}
+                            <div class="history-campaign">
+                                <div style="float: left;">
+                                    <img src="{{ asset('bundles/frontend/images/liga-solidaria.png') }}" alt="{{ donatedOng.campaign.ong.nomeFantasia }}">
+                                </div>
+                                <div style="float: left; margin-left: 20px;">
+                                    <h2 style="font-weight: 100;">{{ donatedOng.campaign.ong.nomeFantasia }}</h2>
+                                    <span class="date-launch" style="float: left;">{{ donatedOng.createdAt|date('d/m/Y \\a\\s h:i:s') }}</span>
+                                    <p class="days-history" style="padding: 0px 10px 20px 30px;">R${{ donatedOng.totalPrice|price(2,',','.') }} EM PRODUTOS DOADOS</p>
+                                </div>
+                            </div><!--history-campaign-->
+                        {% endfor %}
+                    </section><!--status-->
+                </section><!--tab-general-->
+
+                <section class="tab-campaign" id="tabs-2">
+                    <section class="status">
+                        <div class="campaign-heading" style="margin-bottom: 30px;">
+                            <div class="main-cadastro-ong" style="background: #f5f5f5; width: 480px; margin: 0px; padding: 20px 10px; float: left;">
+                                <h2 style="padding: 5px 0px 10px 10px;">Perfil</h2>
+                                <div style="clear: both;"></div>
+                                <div class="left-block" style="float: left; width: 340px;">
+                                    <div style="width: 400px;">
+                                        <div class="main-cadastro-ong-line" style="float: left;padding-top: 15px;">
+                                            <span class="main-cadastro-ong-label" style="display: block; text-align: left;">
+                                                <label for="user_name" class="required">Nome</label>
+                                            </span>
+                                            <div class="main-cadastro-ong-input" style="float: left">
+                                                <input type="text" value="{{ app.security.token.user.firstname }} {{ app.security.token.user.lastname }}" id="user_name" name="user_name" required="required">
+                                            </div>
+                                        </div>
+                                        <div class="main-cadastro-ong-line" style="border-radius:50%;">
+                                            <img src="http://graph.facebook.com/{{ user.userName }}/picture" style="border-radius:50%; width: 70px; margin-left: 30px;" alt="{{ app.security.token.user.firstname }} {{ app.security.token.user.lastname }}">
+                                        </div>
+                                    </div>
+                                    <div style="clear: both;"></div>
+                                    <div class="main-cadastro-ong-line">
+                                        <span class="main-cadastro-ong-label" style="display: block; text-align: left;">
+                                            Sobre Você
+                                        </span>
+                                        <div class="main-cadastro-ong-input" style="float: left">
+                                            <textarea id="user_description" name="user_description" required="required"></textarea>
+                                        </div>
+                                    </div>
+                                    <div style="clear: both;"></div>
+                                    <div class="main-cadastro-ong-line">
+                                        <span class="main-cadastro-ong-label" style="display: block; text-align: left;">
+                                            Localização:
+                                        </span>
+                                        <div class="main-cadastro-ong-input" style="float: left">
+                                            <input type="text" id="user_location" name="user_location" required="required" maxlength="100">
+                                        </div>
+                                    </div>
+                                    <div style="clear: both;"></div>
+                                </div>
+                                <div style="clear: both;"></div>
+                                <div style="text-align: right;">
+                                    <input type="submit" value="Salvar Alterações" style="background: #5C5C5C;padding: 5px 20px;border: none;color: #E3E3E3;font-size: 16px;font-weight: 100;border-radius: 2px;margin:20px 20px 0px 0px;"/>
+                                </div>
+                            </div>
+                            <div class="main-cadastro-ong" style="background: #f5f5f5; width: 320px; margin: 0 20px; padding: 20px 10px; float: left;">
+                                <h2 style="padding: 5px 0px 10px 10px;">Conta</h2>
+                                <div style="clear: both;"></div>
+                                <div class="left-block" style="float: left; width: 240px;">
+                                    <div class="main-cadastro-ong-line" style="float: left;padding-top: 15px;">
+                                        <span class="main-cadastro-ong-label" style="display: block; text-align: left;">
+                                            <label for="user_email" class="required">Email</label>
+                                        </span>
+                                        <div class="main-cadastro-ong-input" style="float: left">
+                                            <input type="text" value="{{ app.security.token.user.email }}" id="user_email" name="user_email" required="required">
+                                        </div>
+                                    </div>
+                                    <div style="clear: both;"></div>
+                                </div>
+                                <div style="clear: both;"></div>
+                                <div style="text-align: right;">
+                                    <input type="submit" value="Salvar Alterações" style="background: #5C5C5C;padding: 5px 20px;border: none;color: #E3E3E3;font-size: 16px;font-weight: 100;border-radius: 2px;margin:20px 20px 0px 0px;"/>
+                                </div>
+                            </div>
+                        </div><!--campaign-title-->
+                    </section>
+                </section><!--tab-donors-->
+            </div><!--about-->
+        </div><!--wrapper-->
+    </main>
+
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(function() {
+                var tabGet = '{{ app.request.query.get('tab') }}';
+                if (tabGet.length > 0) {
+                    var selectedTab = tabGet;
+                } else {
+                    var selectedTab = 0;
+                }
+                $( "#tabs" ).tabs({active: selectedTab });
+            });
+
+        });
+    </script>
+{% endblock %}

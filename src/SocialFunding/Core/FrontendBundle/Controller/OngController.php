@@ -77,16 +77,21 @@ class OngController extends Controller{
         $historyCampaign = $repoCampaign->findAllDoneByOng($ong->getId());
 
         $dateNow = new \DateTime('now');
-        $finalDate = $activeCampaign->getFinalDate();
-        $interval = $dateNow->diff($finalDate);
-
         $totalValuePurchased = 0;
         $totalPurchased = 0;
         $totalNested = 0;
-        foreach ($activeCampaign->getProducts() as $productCampaign) {
-            $totalPurchased += $productCampaign->getQuantityPurchased();
-            $totalNested += $productCampaign->getQuantity();
-            $totalValuePurchased += $productCampaign->getQuantityPurchased()*$productCampaign->getProduct()->getPriceFrom();
+
+        if ($activeCampaign != null) {
+            $finalDate = $activeCampaign->getFinalDate();
+            $interval = $dateNow->diff($finalDate);
+            $intervalFormated = $interval->format('%a');
+            foreach ($activeCampaign->getProducts() as $productCampaign) {
+                $totalPurchased += $productCampaign->getQuantityPurchased();
+                $totalNested += $productCampaign->getQuantity();
+                $totalValuePurchased += $productCampaign->getQuantityPurchased()*$productCampaign->getProduct()->getPriceFrom();
+            }
+        } else {
+            $intervalFormated = 0;
         }
 
         if ($totalNested == 0) {
@@ -96,11 +101,10 @@ class OngController extends Controller{
         }
 
 
-
         return array(
             'ong' => $ong,
             'activeCampaign' => $activeCampaign,
-            'remainingDays' => $interval->format('%a'),
+            'remainingDays' => $intervalFormated,
             'totalPurchased' => $totalPurchased,
             'totalPercent' => $totalPercent,
             'totalValuePurchased' => $totalValuePurchased,

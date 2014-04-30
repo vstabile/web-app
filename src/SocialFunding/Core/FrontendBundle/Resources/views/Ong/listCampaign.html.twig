@@ -1,5 +1,7 @@
 {% extends 'FrontendBundle::layout_ong.html.twig' %}
-
+{% block title %}
+    {{ ong.nomeFantasia }} - Campanhas
+{% endblock %}
 {% block body %}
     <main>
         <div class="wrapper">
@@ -7,7 +9,6 @@
 			<span class="page-title pull-left">
 				<img src="{{ asset('bundles/frontend/images/liga-solidaria.png') }}" alt="Liga Solidária">
 				<h1>{{ ong.nomeFantasia }}</h1>
-				<h2>Subtítulo</h2>
 			</span>
 
                 <button class="btn-top">Criar campanha</button>
@@ -22,6 +23,7 @@
                 <section class="tab-general" id="tabs-1">
                     <section class="status">
                         <h2>Status da campanha atual</h2>
+                        {% if activeCampaign is not null %}
                         <a href="{{ activeCampaign.id }}" class="link">Ver campanha</a>
                         <div class="donate-status">
                             <p class="type-status">Ativa</p>
@@ -30,6 +32,7 @@
                             <p class="days-status"><span>{{ remainingDays }}</span> Dias <br />Restantes</p>
                             <a href="#" class="desactive-campaign">Inativar Campanha</a>
                         </div><!--donate-status-->
+                        {% endif %}
                     </section><!--status-->
 
                     <section class="campaign">
@@ -63,12 +66,14 @@
                                     <th>Produto</th>
                                     <th>Quantidade doada</th>
                                 </tr>
-                                {% for actualCampaignProducts in activeCampaign.products %}
-                                    <tr>
-                                        <td>{{ actualCampaignProducts.product.name }}</td>
-                                        <td>{{ actualCampaignProducts.quantityPurchased }}/{{ actualCampaignProducts.quantity }}</td>
-                                    </tr>
-                                {% endfor %}
+                                {% if activeCampaign is not null %}
+                                    {% for actualCampaignProducts in activeCampaign.products %}
+                                        <tr>
+                                            <td>{{ actualCampaignProducts.product.name }}</td>
+                                            <td>{{ actualCampaignProducts.quantityPurchased }}/{{ actualCampaignProducts.quantity }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                {% endif %}
                             </table>
                         </div><!--donate-status-->
                         <section class="history">

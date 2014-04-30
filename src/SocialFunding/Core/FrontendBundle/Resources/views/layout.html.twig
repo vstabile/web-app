@@ -20,33 +20,54 @@
                 fjs.parentNode.insertBefore(js, fjs);
             }(document, 'script', 'facebook-jssdk'));</script>
         {% block header %}
+            {% for flashMessage in app.session.flashbag.get('notice') %}
+                <div class="flash-message">
+                    <em>Notice</em>: {{ flashMessage }}
+                </div>
+            {% endfor %}
             <header>
                 <div class="header-wrapper">
                     <div class="logo" itemscope="" itemtype="http://schema.org/Organization">
-                        <h1 style="display: none; text-indent: -9999em">Social Funding</h1>
-                        <a href="{{ path('search_index') }}" title="Social Funding" itemprop=url><img src="{{ asset('bundles/frontend/images/logo-social-funding.png') }}" alt="Social Funding" itemprop="logo" /></a>
+                        <a href="{{ path('search_index') }}" title="Social Funding" itemprop=ürl><img src="{{ asset('bundles/frontend/images/logo-social-funding.png') }}" alt="Social Funding" itemprop="logo"></a>
                     </div><!--logo-->
-                    <nav class="main-menu">
+                    <div class="social-icons">
+                        <a href="#" title="Curta nossa fanpage no Facebook"><img src="{{ asset('bundles/frontend/images/facebook.png') }}" alt="Facebook"></a>
+                        <a href="#" title="Siga-nos no Twitter"><img src="{{ asset('bundles/frontend/images/twitter.png') }}" alt="Twitter"></a>
+                        <a href="#" title="Siga-nos no Instagram"><img src="{{ asset('bundles/frontend/images/instagram.png') }}" alt="Instagram"></a>
+                    </div><!--social-icons-->
+                    {% if is_granted('ROLE_FACEBOOK') %}
+                    <nav class="main-menu with-logged" style="width: 685px;">
                         <ul>
                             <li><a href="{{ path('search_about_us') }}">quem somos</a></li>
                             <li><a href="{{ path('fos_user_registration_register') }}" class="menu-border">cadastrar ong<h2 style="text-indent: -9999em">Cadastrar ONG</h2></a></li>
-                        </ul>
-                    </nav><!--main-menu-->
-                    <form action="{{ path('search_search') }}" method="get" class="search">
-                        <input type="submit" class="search-send" value="">
-                        <input type="text" name="q" class="field" placeholder="Pesquisar ONG">
-                    </form>
-                    <nav class="main-menu">
-                        <ul>
-                            <li><a href="{{ path('fos_user_security_login') }}">login</a></li>
+                            <form action="{{ path('search_search') }}" method="get" class="search">
+                            <input type="submit" class="search-send" value="">
+                            <input type="text" name="q" class="field" placeholder="Pesquisar ONG">
+                            </form>
                             <li><a href="" class="menu-border">ajuda</a></li>
                         </ul>
+                        <a href="#" class="logged">{{ app.security.token.user.firstname }}</a>
+                        <ul class="logged-menu" style="left: 477px;">
+                            <li><a href="{{ path('user_user_perfil') }}?tab=0" class="create-campaign">Ongs Apoiadas</a></li>
+                            {#<li><a href="{{ path('ong_list_campaign') }}" class="my-campaigns">Seguir Amigos</a></li>#}
+                            <li><a href="{{ path('user_user_perfil') }}?tab=1" class="info">Informações</a></li>
+                            <li><a href="{{ path('_security_logout') }}" class="logout">LOG OUT</a></li>
+                        </ul>
                     </nav><!--main-menu-->
-                    <div class="social-icons">
-                        <a href="http://facebook.com/socialfundingbr" target="_blank" title="Curta nossa fanpage no Facebook"><img src="{{ asset('bundles/frontend/images/facebook.png') }}" alt="Facebook"/></a>
-                        <a href="http://twitter.com/socialfundingbr" target="_blank" title="Siga-nos no Twitter"><img src="{{ asset('bundles/frontend/images/twitter.png') }}" alt="Twitter"/></a>
-                        <a href="http://instagram.com/socialfunding" target="_blank" title="Siga-nos no Instagram"><img src="{{ asset('bundles/frontend/images/instagram.png') }}" alt="Instagram"/></a>
-                    </div><!--social-icons-->
+                    {% else %}
+                    <nav class="main-menu">
+                    <ul>
+                        <li><a href="{{ path('search_about_us') }}">quem somos</a></li>
+                        <li><a href="{{ path('fos_user_registration_register') }}" class="menu-border">cadastrar ong<h2 style="text-indent: -9999em">Cadastrar ONG</h2></a></li>
+                        <form action="{{ path('search_search') }}" method="get" class="search">
+                            <input type="submit" class="search-send" value="">
+                            <input type="text" name="q" class="field" placeholder="Pesquisar ONG">
+                        </form>
+                        <li><a href="{{ path('fos_user_security_login') }}">login</a></li>
+                        <li><a href="" class="menu-border">ajuda</a></li>
+                    </ul>
+                    </nav><!--main-menu-->
+                    {% endif %}
                 </div><!--header-wrapper-->
                 <div class="clearAll"></div>
                 {% for flashMessage in app.session.flashbag.get('notice') %}
@@ -132,6 +153,9 @@
                     $('.carousel-next').jcarouselControl({
                         target: '+=1'
                     });
+                });
+                $(".logged").click(function(){
+                    $(".logged-menu").toggle();
                 });
             });
         </script>

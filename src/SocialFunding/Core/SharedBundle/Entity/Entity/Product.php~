@@ -1,0 +1,615 @@
+<?php
+
+namespace SocialFunding\Core\SharedBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+
+/**
+ * Product
+ *
+ * @ORM\Table()
+ * @ORM\Entity
+ */
+class Product
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="IntegrationEnginePartner", inversedBy="products")
+     * @ORM\JoinColumn(name="integration_engine_partner_id", referencedColumnName="id")
+     */
+    private $integrationEnginePartner;
+
+    /**
+     * @ORM\OneToMany(targetEntity="CampaignProducts", mappedBy="product")
+     */
+    private $campaignProducts;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="code", type="integer")
+     */
+    private $code;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=255)
+     */
+    private $name;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="text")
+     */
+    private $description;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="IntegrationEngineCategory", inversedBy="products")
+     * @ORM\JoinColumn(name="integration_engine_category_id", referencedColumnName="id")
+     */
+    private $integrationEngineCategory;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="code_manufacturer", type="integer")
+     */
+    private $codeManufacturer;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name_manufacturer", type="string", length=255)
+     */
+    private $nameManufacturer;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="image_small", type="integer")
+     */
+    private $imageSmall;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="image_average", type="integer")
+     */
+    private $imageAverage;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="image_big", type="integer")
+     */
+    private $imageBig;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="keywords", type="string", length=255)
+     */
+    private $keywords;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="code_sku", type="integer")
+     */
+    private $codeSku;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="price_from", type="float")
+     */
+    private $priceFrom;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="price_to", type="float", nullable=true)
+     */
+    private $priceTo;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="available", type="boolean")
+     */
+    private $available;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="availability", type="integer", nullable=true)
+     */
+    private $availability;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="specification", type="text", nullable=true)
+     */
+    private $specification;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="technical_specification", type="text", nullable=true)
+     */
+    private $technicalSpecification;
+
+    public function __construct()
+    {
+        $this->campaignProducts = new ArrayCollection();
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set integrationEnginePartner
+     *
+     * @param \stdClass $integrationEnginePartner
+     * @return Product
+     */
+    public function setIntegrationEnginePartner($integrationEnginePartner)
+    {
+        $this->integrationEnginePartner = $integrationEnginePartner;
+
+        return $this;
+    }
+
+    /**
+     * Get integrationEnginePartner
+     *
+     * @return \stdClass 
+     */
+    public function getIntegrationEnginePartner()
+    {
+        return $this->integrationEnginePartner;
+    }
+
+    /**
+     * Set code
+     *
+     * @param integer $code
+     * @return Product
+     */
+    public function setCode($code)
+    {
+        $this->code = $code;
+
+        return $this;
+    }
+
+    /**
+     * Get code
+     *
+     * @return integer 
+     */
+    public function getCode()
+    {
+        return $this->code;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return Product
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return Product
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string 
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Set codeManufacturer
+     *
+     * @param integer $codeManufacturer
+     * @return Product
+     */
+    public function setCodeManufacturer($codeManufacturer)
+    {
+        $this->codeManufacturer = $codeManufacturer;
+
+        return $this;
+    }
+
+    /**
+     * Get codeManufacturer
+     *
+     * @return integer 
+     */
+    public function getCodeManufacturer()
+    {
+        return $this->codeManufacturer;
+    }
+
+    /**
+     * Set nameManufacturer
+     *
+     * @param string $nameManufacturer
+     * @return Product
+     */
+    public function setNameManufacturer($nameManufacturer)
+    {
+        $this->nameManufacturer = $nameManufacturer;
+
+        return $this;
+    }
+
+    /**
+     * Get nameManufacturer
+     *
+     * @return string 
+     */
+    public function getNameManufacturer()
+    {
+        return $this->nameManufacturer;
+    }
+
+    /**
+     * Set imageSmall
+     *
+     * @param integer $imageSmall
+     * @return Product
+     */
+    public function setImageSmall($imageSmall)
+    {
+        $this->imageSmall = $imageSmall;
+
+        return $this;
+    }
+
+    /**
+     * Get imageSmall
+     *
+     * @return integer 
+     */
+    public function getImageSmall()
+    {
+        return $this->imageSmall;
+    }
+
+    /**
+     * Set imageAverage
+     *
+     * @param integer $imageAverage
+     * @return Product
+     */
+    public function setImageAverage($imageAverage)
+    {
+        $this->imageAverage = $imageAverage;
+
+        return $this;
+    }
+
+    /**
+     * Get imageAverage
+     *
+     * @return integer 
+     */
+    public function getImageAverage()
+    {
+        return $this->imageAverage;
+    }
+
+    /**
+     * Set imageBig
+     *
+     * @param integer $imageBig
+     * @return Product
+     */
+    public function setImageBig($imageBig)
+    {
+        $this->imageBig = $imageBig;
+
+        return $this;
+    }
+
+    /**
+     * Get imageBig
+     *
+     * @return integer 
+     */
+    public function getImageBig()
+    {
+        return $this->imageBig;
+    }
+
+    /**
+     * Set keywords
+     *
+     * @param string $keywords
+     * @return Product
+     */
+    public function setKeywords($keywords)
+    {
+        $this->keywords = $keywords;
+
+        return $this;
+    }
+
+    /**
+     * Get keywords
+     *
+     * @return string 
+     */
+    public function getKeywords()
+    {
+        return $this->keywords;
+    }
+
+    /**
+     * Set codeSku
+     *
+     * @param integer $codeSku
+     * @return Product
+     */
+    public function setCodeSku($codeSku)
+    {
+        $this->codeSku = $codeSku;
+
+        return $this;
+    }
+
+    /**
+     * Get codeSku
+     *
+     * @return integer 
+     */
+    public function getCodeSku()
+    {
+        return $this->codeSku;
+    }
+
+    /**
+     * Set priceFrom
+     *
+     * @param float $priceFrom
+     * @return Product
+     */
+    public function setPriceFrom($priceFrom)
+    {
+        $this->priceFrom = $priceFrom;
+
+        return $this;
+    }
+
+    /**
+     * Get priceFrom
+     *
+     * @return float 
+     */
+    public function getPriceFrom()
+    {
+        return $this->priceFrom;
+    }
+
+    /**
+     * Set priceTo
+     *
+     * @param float $priceTo
+     * @return Product
+     */
+    public function setPriceTo($priceTo)
+    {
+        $this->priceTo = $priceTo;
+
+        return $this;
+    }
+
+    /**
+     * Get priceTo
+     *
+     * @return float
+     */
+    public function getPriceTo()
+    {
+        return $this->priceTo;
+    }
+
+    /**
+     * Set available
+     *
+     * @param boolean $available
+     * @return Product
+     */
+    public function setAvailable($available)
+    {
+        $this->available = $available;
+
+        return $this;
+    }
+
+    /**
+     * Get available
+     *
+     * @return boolean 
+     */
+    public function getAvailable()
+    {
+        return $this->available;
+    }
+
+    /**
+     * Set available
+     *
+     * @param boolean $available
+     * @return Product
+     */
+    public function setAvailability($availability)
+    {
+        $this->availability = $availability;
+
+        return $this;
+    }
+
+    /**
+     * Get available
+     *
+     * @return boolean
+     */
+    public function getAvailability()
+    {
+        return $this->availability;
+    }
+
+    /**
+     * Set specification
+     *
+     * @param string $specification
+     * @return Product
+     */
+    public function setSpecification($specification)
+    {
+        $this->specification = $specification;
+
+        return $this;
+    }
+
+    /**
+     * Get specification
+     *
+     * @return string 
+     */
+    public function getSpecification()
+    {
+        return $this->specification;
+    }
+
+    /**
+     * Set technicalSpecification
+     *
+     * @param string $technicalSpecification
+     * @return Product
+     */
+    public function setTechnicalSpecification($technicalSpecification)
+    {
+        $this->technicalSpecification = $technicalSpecification;
+
+        return $this;
+    }
+
+    /**
+     * Get technicalSpecification
+     *
+     * @return string 
+     */
+    public function getTechnicalSpecification()
+    {
+        return $this->technicalSpecification;
+    }
+
+    /**
+     * Set integrationEngineCategory
+     *
+     * @param \SocialFunding\Core\SharedBundle\Entity\IntegrationEngineCategory $integrationEngineCategory
+     * @return Product
+     */
+    public function setIntegrationEngineCategory($integrationEngineCategory = null)
+    {
+        $this->integrationEngineCategory = $integrationEngineCategory;
+
+        return $this;
+    }
+
+    /**
+     * Get integrationEngineCategory
+     *
+     * @return \SocialFunding\Core\SharedBundle\Entity\IntegrationEngineCategory 
+     */
+    public function getIntegrationEngineCategory()
+    {
+        return $this->integrationEngineCategory;
+    }
+
+    /**
+     * Add campaignProducts
+     *
+     * @param \SocialFunding\Core\SharedBundle\Entity\CampaignProducts $campaignProducts
+     * @return Product
+     */
+    public function addCampaignProduct(\SocialFunding\Core\SharedBundle\Entity\CampaignProducts $campaignProducts)
+    {
+        $this->campaignProducts[] = $campaignProducts;
+
+        return $this;
+    }
+
+    /**
+     * Remove campaignProducts
+     *
+     * @param \SocialFunding\Core\SharedBundle\Entity\CampaignProducts $campaignProducts
+     */
+    public function removeCampaignProduct(\SocialFunding\Core\SharedBundle\Entity\CampaignProducts $campaignProducts)
+    {
+        $this->campaignProducts->removeElement($campaignProducts);
+    }
+
+    /**
+     * Get campaignProducts
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCampaignProducts()
+    {
+        return $this->campaignProducts;
+    }
+}

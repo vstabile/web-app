@@ -2,6 +2,7 @@
 
 namespace SocialFunding\Core\FrontendBundle\Controller;
 
+use SocialFunding\Core\SharedBundle\Entity\Costumer;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -17,11 +18,18 @@ class SearchController extends Controller
     public function indexAction()
     {
 
+        if ($this->getUser() instanceof Costumer) {
+            $userLogged = $this->getUser();
+        } else {
+            $userLogged = null;
+        }
+
         $em = $this->get('doctrine')->getManager();
         $repoCampaign = $em->getRepository('SharedBundle:Campaign');
         $recommendedCampaigns = $repoCampaign->findAllRecommendedCampaigns();
         return array(
-            'recommendedCampaigns' => $recommendedCampaigns
+            'recommendedCampaigns' => $recommendedCampaigns,
+            'user' => $userLogged
         );
     }
 
