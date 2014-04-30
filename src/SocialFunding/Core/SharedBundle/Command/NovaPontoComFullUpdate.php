@@ -23,7 +23,7 @@ class NovaPontoComFullUpdate extends ContainerAwareCommand {
     private $downloadList = array(
         //'FullExtra.zip' => 'http://b2b.extrahlg.net/Arquivos/CatalogoB2B/Completo?idParceiro=2',
         'FullPontoFrio.zip' => 'http://b2b.pontofriohlg.net/Arquivos/CatalogoB2B/Completo?idParceiro=2',
-        'FullCasasBahia.zip' => 'http://b2b.casasbahiahlg.net/Arquivos/CatalogoB2B/Completo?idParceiro=2'
+//        'FullCasasBahia.zip' => 'http://b2b.casasbahiahlg.net/Arquivos/CatalogoB2B/Completo?idParceiro=2'
     );
 
     protected function configure()
@@ -38,7 +38,7 @@ class NovaPontoComFullUpdate extends ContainerAwareCommand {
     {
         $output->writeln('Starting download');
         $update = new FullUpdate($this->getContainer()->get('doctrine'));
-        //$update->downloadAndExtractList();
+        $update->downloadAndExtractList();
         $output->writeln('Download finalized successfully');
         $output->writeln('Updating database information');
         $productList = $this->readCurrentXml();

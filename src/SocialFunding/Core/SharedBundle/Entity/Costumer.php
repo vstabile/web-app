@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Ong
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="SocialFunding\Core\SharedBundle\Repository\CostumerRepository")
  */
 class Costumer extends BaseUser
 {

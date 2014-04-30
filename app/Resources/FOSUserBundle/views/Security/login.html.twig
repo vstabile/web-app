@@ -19,6 +19,14 @@
                     }
                 });
             }
+//            FB.getLoginStatus(function(response) {
+//                if (response.session) { // logged in and connected user
+//                    $('a.logout').click(function(){
+//                        FB.logout();
+//                        return false; });
+//                } else { // no user session available, someone you dont know
+//                }
+//            });
         }
     </script>
     {{ facebook_initialize({'xfbml': true, 'fbAsyncInit': 'onFbInit();'}) }}
@@ -30,7 +38,7 @@
     <div class="login-main-block" style="width: 650px; margin: 0 auto;">
         <div class="login-left-block" style="float: left; width: 300px; height: 600px; margin-right: 35px; background: #f5f5f5;">
             <h3 class="login-block-title">DOADOR</h3>
-            {{ facebook_login_button({'autologoutlink': true}) }}
+            {{ facebook_login_button({'autologoutlink': false}) }}
         </div>
         <div class="login-right-block" style="float: left; width: 300px; height: 600px; background: #f5f5f5;">
             <h3 class="login-block-title" style="font-size: 26px; margin-top: 15px;">ONG</h3>
@@ -55,7 +63,7 @@
                     </div>
                 </div>
                 <div class="clearAll"></div>
-                <span class="forgot-password">Esqueci minha senha</span>
+                <a href="{{ path('fos_user_resetting_request') }}" class="forgot-password">Esqueci minha senha</a>
                 <div class="buttonLine">
                     <input type="submit" id="_submit" name="_submit" class="login-button" value="Entrar" />
                 </div>
